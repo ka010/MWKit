@@ -1,0 +1,632 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4E6A1139142B73DE00B025C0 /* mw8_5.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E6A1136142B73DE00B025C0 /* mw8_5.ttf */; };
+		4E6A113A142B73DE00B025C0 /* mw8_7.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E6A1137142B73DE00B025C0 /* mw8_7.ttf */; };
+		4E6A113B142B73DE00B025C0 /* MetaWatch Large 16pt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4E6A1138142B73DE00B025C0 /* MetaWatch Large 16pt.ttf */; };
+		4E6A115B142CB8CF00B025C0 /* MWImageTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6A1159142CB8CF00B025C0 /* MWImageTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E6A115C142CB8CF00B025C0 /* MWImageTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E6A1159142CB8CF00B025C0 /* MWImageTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E6A115D142CB8CF00B025C0 /* MWImageTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6A115A142CB8CF00B025C0 /* MWImageTools.m */; };
+		4E6A115E142CB8CF00B025C0 /* MWImageTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6A115A142CB8CF00B025C0 /* MWImageTools.m */; };
+		4E8A4A681433062E008CDA90 /* mw8_5.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4E6A1136142B73DE00B025C0 /* mw8_5.ttf */; };
+		4E8A4A691433062E008CDA90 /* mw8_7.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4E6A1137142B73DE00B025C0 /* mw8_7.ttf */; };
+		4E8A4A6A1433062E008CDA90 /* MetaWatch Large 16pt.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4E6A1138142B73DE00B025C0 /* MetaWatch Large 16pt.ttf */; };
+		4E8A4B0014351FA0008CDA90 /* home_mac.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 4E8A4AFF14351F9F008CDA90 /* home_mac.bmp */; };
+		4E8A4BA3143542ED008CDA90 /* libBTstack.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8A4BA2143542ED008CDA90 /* libBTstack.dylib */; };
+		4E8FB06B1427247C005854AA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8FB06A1427247C005854AA /* Cocoa.framework */; };
+		4E8FB0751427247C005854AA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E8FB0731427247C005854AA /* InfoPlist.strings */; };
+		4E8FB0821427249C005854AA /* crc16ccitt.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E8FB0801427249C005854AA /* crc16ccitt.h */; };
+		4E8FB0831427249C005854AA /* crc16ccitt.c in Sources */ = {isa = PBXBuildFile; fileRef = 4E8FB0811427249C005854AA /* crc16ccitt.c */; };
+		4E8FB0921427250E005854AA /* MWMetaWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E8FB0901427250E005854AA /* MWMetaWatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E8FB0931427250E005854AA /* MWMetaWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8FB0911427250E005854AA /* MWMetaWatch.m */; };
+		4E8FB09614272580005854AA /* MWBluetoothController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E8FB09414272580005854AA /* MWBluetoothController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E8FB09714272580005854AA /* MWBluetoothController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8FB09514272580005854AA /* MWBluetoothController.m */; };
+		4E8FB09A142725BA005854AA /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8FB098142725BA005854AA /* IOBluetooth.framework */; };
+		4E8FB09B142725BA005854AA /* IOBluetoothUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8FB099142725BA005854AA /* IOBluetoothUI.framework */; };
+		4E8FB0D5142728CA005854AA /* MWKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E8FB0771427247C005854AA /* MWKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E96A0421429F5C100CFAA5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E96A0411429F5C100CFAA5F /* Foundation.framework */; };
+		4E96A04D1429F61600CFAA5F /* crc16ccitt.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E8FB0801427249C005854AA /* crc16ccitt.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E96A04E1429F61900CFAA5F /* MWKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E8FB0771427247C005854AA /* MWKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E96A04F1429F61B00CFAA5F /* MWMetaWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E8FB0901427250E005854AA /* MWMetaWatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E96A0551429F68400CFAA5F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E96A0541429F68400CFAA5F /* UIKit.framework */; };
+		4E96A0621429F8B800CFAA5F /* MWMetaWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8FB0911427250E005854AA /* MWMetaWatch.m */; };
+		4E96A0711429FD2400CFAA5F /* BTDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E96A06B1429FD2400CFAA5F /* BTDevice.h */; };
+		4E96A0721429FD2400CFAA5F /* BTDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E96A06C1429FD2400CFAA5F /* BTDevice.m */; };
+		4E96A0731429FD2400CFAA5F /* BTDiscoveryViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E96A06D1429FD2400CFAA5F /* BTDiscoveryViewController.h */; };
+		4E96A0741429FD2400CFAA5F /* BTDiscoveryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E96A06E1429FD2400CFAA5F /* BTDiscoveryViewController.m */; };
+		4E96A0751429FD2400CFAA5F /* BTstackManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E96A06F1429FD2400CFAA5F /* BTstackManager.h */; };
+		4E96A0761429FD2400CFAA5F /* BTstackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E96A0701429FD2400CFAA5F /* BTstackManager.m */; };
+		4E96A092142AA96400CFAA5F /* MWConnectionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E96A090142AA96400CFAA5F /* MWConnectionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E96A093142AA96400CFAA5F /* MWConnectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E96A091142AA96400CFAA5F /* MWConnectionController.m */; };
+		4E96A094142AAC4300CFAA5F /* MWConnectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E96A091142AA96400CFAA5F /* MWConnectionController.m */; };
+		4E96A095142AAC4E00CFAA5F /* MWConnectionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E96A090142AA96400CFAA5F /* MWConnectionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E96A098142AB1FC00CFAA5F /* MWBTStackController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E96A096142AB1FC00CFAA5F /* MWBTStackController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E96A099142AB1FC00CFAA5F /* MWBTStackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E96A097142AB1FC00CFAA5F /* MWBTStackController.m */; };
+		4E96A0E0142ABC4F00CFAA5F /* crc16ccitt.c in Sources */ = {isa = PBXBuildFile; fileRef = 4E8FB0811427249C005854AA /* crc16ccitt.c */; };
+		4ED87792142DE1AC009674B9 /* home.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 4ED87791142DE1AC009674B9 /* home.bmp */; };
+		4ED87793142DE1AC009674B9 /* home.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 4ED87791142DE1AC009674B9 /* home.bmp */; };
+		4EE38DBE1429483D00BDBD76 /* MWSerialPortController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EE38DBC1429483D00BDBD76 /* MWSerialPortController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4EE38DBF1429483D00BDBD76 /* MWSerialPortController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE38DBD1429483D00BDBD76 /* MWSerialPortController.m */; };
+		4EE38DC2142948E400BDBD76 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EE38DC1142948E400BDBD76 /* IOKit.framework */; };
+		4EE38DC41429494F00BDBD76 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EE38DC31429494F00BDBD76 /* CoreFoundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4E8A4A671433061C008CDA90 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = fonts;
+			dstSubfolderSpec = 7;
+			files = (
+				4E8A4A681433062E008CDA90 /* mw8_5.ttf in CopyFiles */,
+				4E8A4A691433062E008CDA90 /* mw8_7.ttf in CopyFiles */,
+				4E8A4A6A1433062E008CDA90 /* MetaWatch Large 16pt.ttf in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		4E6A1136142B73DE00B025C0 /* mw8_5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = mw8_5.ttf; sourceTree = "<group>"; };
+		4E6A1137142B73DE00B025C0 /* mw8_7.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = mw8_7.ttf; sourceTree = "<group>"; };
+		4E6A1138142B73DE00B025C0 /* MetaWatch Large 16pt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MetaWatch Large 16pt.ttf"; sourceTree = "<group>"; };
+		4E6A1159142CB8CF00B025C0 /* MWImageTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWImageTools.h; sourceTree = "<group>"; };
+		4E6A115A142CB8CF00B025C0 /* MWImageTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWImageTools.m; sourceTree = "<group>"; };
+		4E6A115F142CB91F00B025C0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		4E6A116C142CC02E00B025C0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4E8A4AFF14351F9F008CDA90 /* home_mac.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = home_mac.bmp; sourceTree = "<group>"; };
+		4E8A4BA2143542ED008CDA90 /* libBTstack.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libBTstack.dylib; sourceTree = "<group>"; };
+		4E8FB0671427247C005854AA /* MWKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MWKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E8FB06A1427247C005854AA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		4E8FB06D1427247C005854AA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		4E8FB06E1427247C005854AA /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		4E8FB06F1427247C005854AA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4E8FB0721427247C005854AA /* MWKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MWKit-Info.plist"; sourceTree = "<group>"; };
+		4E8FB0741427247C005854AA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4E8FB0761427247C005854AA /* MWKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWKit-Prefix.pch"; sourceTree = "<group>"; };
+		4E8FB0771427247C005854AA /* MWKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MWKit.h; path = MWKit/MWKit.h; sourceTree = "<group>"; };
+		4E8FB0801427249C005854AA /* crc16ccitt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crc16ccitt.h; sourceTree = "<group>"; };
+		4E8FB0811427249C005854AA /* crc16ccitt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crc16ccitt.c; sourceTree = "<group>"; };
+		4E8FB0901427250E005854AA /* MWMetaWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMetaWatch.h; sourceTree = "<group>"; };
+		4E8FB0911427250E005854AA /* MWMetaWatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWMetaWatch.m; sourceTree = "<group>"; };
+		4E8FB09414272580005854AA /* MWBluetoothController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWBluetoothController.h; sourceTree = "<group>"; };
+		4E8FB09514272580005854AA /* MWBluetoothController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWBluetoothController.m; sourceTree = "<group>"; };
+		4E8FB098142725BA005854AA /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = System/Library/Frameworks/IOBluetooth.framework; sourceTree = SDKROOT; };
+		4E8FB099142725BA005854AA /* IOBluetoothUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetoothUI.framework; path = System/Library/Frameworks/IOBluetoothUI.framework; sourceTree = SDKROOT; };
+		4E96A0401429F5C100CFAA5F /* libMWKitMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMWKitMobile.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E96A0411429F5C100CFAA5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4E96A0451429F5C100CFAA5F /* MWKitMobile-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWKitMobile-Prefix.pch"; sourceTree = "<group>"; };
+		4E96A0541429F68400CFAA5F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		4E96A06B1429FD2400CFAA5F /* BTDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTDevice.h; sourceTree = "<group>"; };
+		4E96A06C1429FD2400CFAA5F /* BTDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTDevice.m; sourceTree = "<group>"; };
+		4E96A06D1429FD2400CFAA5F /* BTDiscoveryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTDiscoveryViewController.h; sourceTree = "<group>"; };
+		4E96A06E1429FD2400CFAA5F /* BTDiscoveryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTDiscoveryViewController.m; sourceTree = "<group>"; };
+		4E96A06F1429FD2400CFAA5F /* BTstackManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTstackManager.h; sourceTree = "<group>"; };
+		4E96A0701429FD2400CFAA5F /* BTstackManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTstackManager.m; sourceTree = "<group>"; };
+		4E96A090142AA96400CFAA5F /* MWConnectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWConnectionController.h; sourceTree = "<group>"; };
+		4E96A091142AA96400CFAA5F /* MWConnectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWConnectionController.m; sourceTree = "<group>"; };
+		4E96A096142AB1FC00CFAA5F /* MWBTStackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWBTStackController.h; sourceTree = "<group>"; };
+		4E96A097142AB1FC00CFAA5F /* MWBTStackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWBTStackController.m; sourceTree = "<group>"; };
+		4ED87791142DE1AC009674B9 /* home.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = home.bmp; path = MWKitMobile/home.bmp; sourceTree = SOURCE_ROOT; };
+		4EE38DBC1429483D00BDBD76 /* MWSerialPortController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWSerialPortController.h; sourceTree = "<group>"; };
+		4EE38DBD1429483D00BDBD76 /* MWSerialPortController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWSerialPortController.m; sourceTree = "<group>"; };
+		4EE38DC1142948E400BDBD76 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		4EE38DC31429494F00BDBD76 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4E8FB0631427247C005854AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EE38DC41429494F00BDBD76 /* CoreFoundation.framework in Frameworks */,
+				4EE38DC2142948E400BDBD76 /* IOKit.framework in Frameworks */,
+				4E8FB09A142725BA005854AA /* IOBluetooth.framework in Frameworks */,
+				4E8FB09B142725BA005854AA /* IOBluetoothUI.framework in Frameworks */,
+				4E8FB06B1427247C005854AA /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E96A03D1429F5C100CFAA5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E96A0551429F68400CFAA5F /* UIKit.framework in Frameworks */,
+				4E96A0421429F5C100CFAA5F /* Foundation.framework in Frameworks */,
+				4E8A4BA3143542ED008CDA90 /* libBTstack.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4E6A1134142B73D000B025C0 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = fonts;
+			sourceTree = "<group>";
+		};
+		4E8FB05B1427247C005854AA = {
+			isa = PBXGroup;
+			children = (
+				4E6A116C142CC02E00B025C0 /* QuartzCore.framework */,
+				4E6A115F142CB91F00B025C0 /* CoreGraphics.framework */,
+				4E96A08F142AA90900CFAA5F /* Shared */,
+				4E8FB0701427247C005854AA /* MWKit */,
+				4E96A0431429F5C100CFAA5F /* MWKitMobile */,
+				4E8FB0691427247C005854AA /* Frameworks */,
+				4E8FB0681427247C005854AA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4E8FB0681427247C005854AA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4E8FB0671427247C005854AA /* MWKit.framework */,
+				4E96A0401429F5C100CFAA5F /* libMWKitMobile.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4E8FB0691427247C005854AA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4E8A4BA2143542ED008CDA90 /* libBTstack.dylib */,
+				4E96A0541429F68400CFAA5F /* UIKit.framework */,
+				4EE38DC31429494F00BDBD76 /* CoreFoundation.framework */,
+				4EE38DC1142948E400BDBD76 /* IOKit.framework */,
+				4E8FB098142725BA005854AA /* IOBluetooth.framework */,
+				4E8FB099142725BA005854AA /* IOBluetoothUI.framework */,
+				4E8FB06A1427247C005854AA /* Cocoa.framework */,
+				4E96A0411429F5C100CFAA5F /* Foundation.framework */,
+				4E8FB06C1427247C005854AA /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4E8FB06C1427247C005854AA /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4E8FB06D1427247C005854AA /* AppKit.framework */,
+				4E8FB06E1427247C005854AA /* CoreData.framework */,
+				4E8FB06F1427247C005854AA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		4E8FB0701427247C005854AA /* MWKit */ = {
+			isa = PBXGroup;
+			children = (
+				4E96A0511429F63100CFAA5F /* Mac */,
+				4E8FB0711427247C005854AA /* Supporting Files */,
+			);
+			path = MWKit;
+			sourceTree = "<group>";
+		};
+		4E8FB0711427247C005854AA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4E8A4AFF14351F9F008CDA90 /* home_mac.bmp */,
+				4ED87791142DE1AC009674B9 /* home.bmp */,
+				4E6A1136142B73DE00B025C0 /* mw8_5.ttf */,
+				4E6A1137142B73DE00B025C0 /* mw8_7.ttf */,
+				4E6A1138142B73DE00B025C0 /* MetaWatch Large 16pt.ttf */,
+				4E6A1134142B73D000B025C0 /* fonts */,
+				4E8FB0721427247C005854AA /* MWKit-Info.plist */,
+				4E8FB0731427247C005854AA /* InfoPlist.strings */,
+				4E8FB0761427247C005854AA /* MWKit-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4E8FB07F14272488005854AA /* util */ = {
+			isa = PBXGroup;
+			children = (
+				4E8FB0801427249C005854AA /* crc16ccitt.h */,
+				4E8FB0811427249C005854AA /* crc16ccitt.c */,
+				4E6A1159142CB8CF00B025C0 /* MWImageTools.h */,
+				4E6A115A142CB8CF00B025C0 /* MWImageTools.m */,
+			);
+			name = util;
+			path = MWKit;
+			sourceTree = "<group>";
+		};
+		4E96A0431429F5C100CFAA5F /* MWKitMobile */ = {
+			isa = PBXGroup;
+			children = (
+				4E96A0501429F62200CFAA5F /* Mobile */,
+				4E96A0441429F5C100CFAA5F /* Supporting Files */,
+			);
+			path = MWKitMobile;
+			sourceTree = "<group>";
+		};
+		4E96A0441429F5C100CFAA5F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4E96A0451429F5C100CFAA5F /* MWKitMobile-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4E96A0501429F62200CFAA5F /* Mobile */ = {
+			isa = PBXGroup;
+			children = (
+				4E96A09A142AB44000CFAA5F /* BTStack */,
+				4E96A096142AB1FC00CFAA5F /* MWBTStackController.h */,
+				4E96A097142AB1FC00CFAA5F /* MWBTStackController.m */,
+			);
+			name = Mobile;
+			path = ../MWKit;
+			sourceTree = "<group>";
+		};
+		4E96A0511429F63100CFAA5F /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				4E8FB09414272580005854AA /* MWBluetoothController.h */,
+				4E8FB09514272580005854AA /* MWBluetoothController.m */,
+				4EE38DBC1429483D00BDBD76 /* MWSerialPortController.h */,
+				4EE38DBD1429483D00BDBD76 /* MWSerialPortController.m */,
+			);
+			name = Mac;
+			sourceTree = "<group>";
+		};
+		4E96A08F142AA90900CFAA5F /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				4E8FB07F14272488005854AA /* util */,
+				4E8FB0771427247C005854AA /* MWKit.h */,
+				4E8FB0901427250E005854AA /* MWMetaWatch.h */,
+				4E8FB0911427250E005854AA /* MWMetaWatch.m */,
+				4E96A090142AA96400CFAA5F /* MWConnectionController.h */,
+				4E96A091142AA96400CFAA5F /* MWConnectionController.m */,
+			);
+			name = Shared;
+			sourceTree = "<group>";
+		};
+		4E96A09A142AB44000CFAA5F /* BTStack */ = {
+			isa = PBXGroup;
+			children = (
+				4E96A06B1429FD2400CFAA5F /* BTDevice.h */,
+				4E96A06C1429FD2400CFAA5F /* BTDevice.m */,
+				4E96A06D1429FD2400CFAA5F /* BTDiscoveryViewController.h */,
+				4E96A06E1429FD2400CFAA5F /* BTDiscoveryViewController.m */,
+				4E96A06F1429FD2400CFAA5F /* BTstackManager.h */,
+				4E96A0701429FD2400CFAA5F /* BTstackManager.m */,
+			);
+			name = BTStack;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4E8FB0641427247C005854AA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E8FB0D5142728CA005854AA /* MWKit.h in Headers */,
+				4E8FB0921427250E005854AA /* MWMetaWatch.h in Headers */,
+				4E8FB09614272580005854AA /* MWBluetoothController.h in Headers */,
+				4EE38DBE1429483D00BDBD76 /* MWSerialPortController.h in Headers */,
+				4E96A095142AAC4E00CFAA5F /* MWConnectionController.h in Headers */,
+				4E6A115B142CB8CF00B025C0 /* MWImageTools.h in Headers */,
+				4E8FB0821427249C005854AA /* crc16ccitt.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E96A03E1429F5C100CFAA5F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E96A04E1429F61900CFAA5F /* MWKit.h in Headers */,
+				4E96A04F1429F61B00CFAA5F /* MWMetaWatch.h in Headers */,
+				4E96A092142AA96400CFAA5F /* MWConnectionController.h in Headers */,
+				4E6A115C142CB8CF00B025C0 /* MWImageTools.h in Headers */,
+				4E96A098142AB1FC00CFAA5F /* MWBTStackController.h in Headers */,
+				4E96A04D1429F61600CFAA5F /* crc16ccitt.h in Headers */,
+				4E96A0711429FD2400CFAA5F /* BTDevice.h in Headers */,
+				4E96A0731429FD2400CFAA5F /* BTDiscoveryViewController.h in Headers */,
+				4E96A0751429FD2400CFAA5F /* BTstackManager.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		4E8FB0661427247C005854AA /* MWKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E8FB07C1427247C005854AA /* Build configuration list for PBXNativeTarget "MWKit" */;
+			buildPhases = (
+				4E8FB0621427247C005854AA /* Sources */,
+				4E8FB0631427247C005854AA /* Frameworks */,
+				4E8FB0641427247C005854AA /* Headers */,
+				4E8FB0651427247C005854AA /* Resources */,
+				4E8A4A671433061C008CDA90 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MWKit;
+			productName = MWKit;
+			productReference = 4E8FB0671427247C005854AA /* MWKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4E96A03F1429F5C100CFAA5F /* MWKitMobile */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E96A04B1429F5C100CFAA5F /* Build configuration list for PBXNativeTarget "MWKitMobile" */;
+			buildPhases = (
+				4E96A03C1429F5C100CFAA5F /* Sources */,
+				4E96A03D1429F5C100CFAA5F /* Frameworks */,
+				4E96A03E1429F5C100CFAA5F /* Headers */,
+				4ED87790142DE188009674B9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MWKitMobile;
+			productName = MWKitMobile;
+			productReference = 4E96A0401429F5C100CFAA5F /* libMWKitMobile.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4E8FB05D1427247C005854AA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 4E8FB0601427247C005854AA /* Build configuration list for PBXProject "MWKit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4E8FB05B1427247C005854AA;
+			productRefGroup = 4E8FB0681427247C005854AA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4E8FB0661427247C005854AA /* MWKit */,
+				4E96A03F1429F5C100CFAA5F /* MWKitMobile */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4E8FB0651427247C005854AA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E8FB0751427247C005854AA /* InfoPlist.strings in Resources */,
+				4E6A1139142B73DE00B025C0 /* mw8_5.ttf in Resources */,
+				4E6A113A142B73DE00B025C0 /* mw8_7.ttf in Resources */,
+				4E6A113B142B73DE00B025C0 /* MetaWatch Large 16pt.ttf in Resources */,
+				4ED87792142DE1AC009674B9 /* home.bmp in Resources */,
+				4E8A4B0014351FA0008CDA90 /* home_mac.bmp in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4ED87790142DE188009674B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4ED87793142DE1AC009674B9 /* home.bmp in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4E8FB0621427247C005854AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E96A094142AAC4300CFAA5F /* MWConnectionController.m in Sources */,
+				4E8FB0831427249C005854AA /* crc16ccitt.c in Sources */,
+				4E8FB0931427250E005854AA /* MWMetaWatch.m in Sources */,
+				4E8FB09714272580005854AA /* MWBluetoothController.m in Sources */,
+				4EE38DBF1429483D00BDBD76 /* MWSerialPortController.m in Sources */,
+				4E6A115D142CB8CF00B025C0 /* MWImageTools.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E96A03C1429F5C100CFAA5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E96A0E0142ABC4F00CFAA5F /* crc16ccitt.c in Sources */,
+				4E96A0621429F8B800CFAA5F /* MWMetaWatch.m in Sources */,
+				4E96A0721429FD2400CFAA5F /* BTDevice.m in Sources */,
+				4E96A0741429FD2400CFAA5F /* BTDiscoveryViewController.m in Sources */,
+				4E96A0761429FD2400CFAA5F /* BTstackManager.m in Sources */,
+				4E96A093142AA96400CFAA5F /* MWConnectionController.m in Sources */,
+				4E96A099142AB1FC00CFAA5F /* MWBTStackController.m in Sources */,
+				4E6A115E142CB8CF00B025C0 /* MWImageTools.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4E8FB0731427247C005854AA /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4E8FB0741427247C005854AA /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4E8FB07A1427247C005854AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		4E8FB07B1427247C005854AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		4E8FB07D1427247C005854AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MWKit/MWKit-Prefix.pch";
+				GCC_VERSION = "";
+				INFOPLIST_FILE = "MWKit/MWKit-Info.plist";
+				INSTALL_PATH = "@loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		4E8FB07E1427247C005854AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MWKit/MWKit-Prefix.pch";
+				GCC_VERSION = "";
+				INFOPLIST_FILE = "MWKit/MWKit-Info.plist";
+				INSTALL_PATH = "@loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		4E96A0491429F5C100CFAA5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DSTROOT = /tmp/MWKitMobile.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MWKitMobile/MWKitMobile-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"/**";
+				INSTALL_PATH = "@loader_path/../Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../btstack/src\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		4E96A04A1429F5C100CFAA5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DSTROOT = /tmp/MWKitMobile.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MWKitMobile/MWKitMobile-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"/**";
+				INSTALL_PATH = "@loader_path/../Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../btstack/src\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4E8FB0601427247C005854AA /* Build configuration list for PBXProject "MWKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E8FB07A1427247C005854AA /* Debug */,
+				4E8FB07B1427247C005854AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4E8FB07C1427247C005854AA /* Build configuration list for PBXNativeTarget "MWKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E8FB07D1427247C005854AA /* Debug */,
+				4E8FB07E1427247C005854AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4E96A04B1429F5C100CFAA5F /* Build configuration list for PBXNativeTarget "MWKitMobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E96A0491429F5C100CFAA5F /* Debug */,
+				4E96A04A1429F5C100CFAA5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4E8FB05D1427247C005854AA /* Project object */;
+}
