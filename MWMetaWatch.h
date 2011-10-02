@@ -102,7 +102,7 @@
 -(void)readButtonConfiguration:(unsigned char)mode index:(unsigned char)buttonIndex type:(unsigned char)buttonType;
 
 
--(void)writeImage:(NSData*)imgData;
+-(void)writeImage:(NSData*)imgData forMode:(unsigned char)mode;
 -(void)writeText:(NSString*)text;
 -(void)writeNotification:(NSString*)title withContent:(NSString*)text fromSource:(NSString*)src;
 -(void)writeIdleScreenWithData:(NSMutableDictionary*)dataDict;

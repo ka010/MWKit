@@ -76,8 +76,8 @@
 		4E6A1136142B73DE00B025C0 /* mw8_5.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = mw8_5.ttf; sourceTree = "<group>"; };
 		4E6A1137142B73DE00B025C0 /* mw8_7.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = mw8_7.ttf; sourceTree = "<group>"; };
 		4E6A1138142B73DE00B025C0 /* MetaWatch Large 16pt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MetaWatch Large 16pt.ttf"; sourceTree = "<group>"; };
-		4E6A1159142CB8CF00B025C0 /* MWImageTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWImageTools.h; sourceTree = "<group>"; };
-		4E6A115A142CB8CF00B025C0 /* MWImageTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWImageTools.m; sourceTree = "<group>"; };
+		4E6A1159142CB8CF00B025C0 /* MWImageTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWImageTools.h; path = MWKit/MWImageTools.h; sourceTree = "<group>"; };
+		4E6A115A142CB8CF00B025C0 /* MWImageTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWImageTools.m; path = MWKit/MWImageTools.m; sourceTree = "<group>"; };
 		4E6A115F142CB91F00B025C0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		4E6A116C142CC02E00B025C0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4E8A4AFF14351F9F008CDA90 /* home_mac.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = home_mac.bmp; sourceTree = "<group>"; };
@@ -231,8 +231,6 @@
 			children = (
 				4E8FB0801427249C005854AA /* crc16ccitt.h */,
 				4E8FB0811427249C005854AA /* crc16ccitt.c */,
-				4E6A1159142CB8CF00B025C0 /* MWImageTools.h */,
-				4E6A115A142CB8CF00B025C0 /* MWImageTools.m */,
 			);
 			name = util;
 			path = MWKit;
@@ -286,6 +284,8 @@
 				4E8FB0911427250E005854AA /* MWMetaWatch.m */,
 				4E96A090142AA96400CFAA5F /* MWConnectionController.h */,
 				4E96A091142AA96400CFAA5F /* MWConnectionController.m */,
+				4E6A1159142CB8CF00B025C0 /* MWImageTools.h */,
+				4E6A115A142CB8CF00B025C0 /* MWImageTools.m */,
 			);
 			name = Shared;
 			sourceTree = "<group>";

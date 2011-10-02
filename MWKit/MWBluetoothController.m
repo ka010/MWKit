@@ -274,7 +274,7 @@ static MWBluetoothController *sharedController;
     {
         // finds how many bytes I can send:
         UInt32 numBytesToSend = ( ( numBytesRemaining > rfcommChannelMTU ) ? rfcommChannelMTU :  numBytesRemaining );
-        NSLog(@"mtu:%i bytesSent: %i remaining: %i",rfcommChannelMTU, numBytesToSend, numBytesRemaining);
+        //NSLog(@"mtu:%i bytesSent: %i remaining: %i",rfcommChannelMTU, numBytesToSend, numBytesRemaining);
 
         // This method won't return until the buffer has been passed to the Bluetooth hardware to be sent to the remote device.
         // Alternatively, the asynchronous version of this method could be used which would queue up the buffer and return immediately.

@@ -95,11 +95,10 @@
 
 
 
-+(NSData*) imageDataForImage:(CGImageRef)inImage
++(NSData*) imageDataForCGImage:(CGImageRef)inImage
 {
     
-    
-    // Create the bitmap context
+       // Create the bitmap context
     CGContextRef cgctx = [MWImageTools CreateContext:inImage];
     if (cgctx == NULL) 
     { 
@@ -146,10 +145,70 @@
 
 
 
+#pragma mark - Mac Code 
+
 
 
 #if !TARGET_OS_IPHONE
 
+
+
++(NSData*) imageDataForImage:(NSImage*)inImage
+{
+    
+    NSData* cocoaData = [NSBitmapImageRep TIFFRepresentationOfImageRepsInArray: [inImage representations]];
+    CFDataRef carbonData = (CFDataRef)cocoaData;
+    CGImageSourceRef imageSourceRef = CGImageSourceCreateWithData(carbonData, NULL);
+    CGImageRef myCGImage = CGImageSourceCreateImageAtIndex(imageSourceRef, 0, NULL);
+    // Create the bitmap context
+    CGContextRef cgctx = [MWImageTools CreateContext:myCGImage];
+    if (cgctx == NULL) 
+    { 
+        // error creating context
+        return;
+    }
+    
+    NSGraphicsContext *nsGraphicsContext;
+    nsGraphicsContext = [NSGraphicsContext graphicsContextWithGraphicsPort:cgctx
+                                                                   flipped:NO];
+    [NSGraphicsContext saveGraphicsState];
+    [NSGraphicsContext setCurrentContext:nsGraphicsContext];
+    
+    CGContextSetFillColorWithColor(cgctx,  CGColorCreateGenericGray(0.0, 1.0));
+    CGContextFillRect(cgctx, CGRectMake(0, 0, 96, 96));
+    
+        
+    /*
+     Draw the template image
+     */
+    [inImage drawAtPoint:NSMakePoint(0, 0) fromRect:NSMakeRect(0, 0, 96, 96) operation:NSCompositeSourceAtop fraction:1.0];
+    
+    // Now we can get a pointer to the image data associated with the bitmap
+    // context.
+    const char *data = CGBitmapContextGetData (cgctx);
+    
+    NSData* imgData = [NSData dataWithBytes:data length:96*96];
+    
+    CGImageRef imgRef = CGBitmapContextCreateImage(cgctx);
+    //UIImage* img = [UIImage imageWithCGImage:imgRef];
+    CGImageRelease(imgRef);
+    
+    [NSGraphicsContext restoreGraphicsState];
+
+    // When finished, release the context
+    CGContextRelease(cgctx); 
+    // Free image data memory for the context
+    
+    if (data)
+    {
+        free(data);
+    }
+    
+    
+    
+    
+    return imgData;
+}
 
 
 
@@ -372,67 +431,123 @@
     CGImageRef myCGImage = CGImageSourceCreateImageAtIndex(imageSourceRef, 0, NULL);
     
     
-    // Create the bitmap context
+    /*
+     Create the ImageConext 
+     */
     CGContextRef cgctx = [MWImageTools CreateContext:myCGImage];
     if (cgctx == NULL) 
     { 
         // error creating context
         return;
     }
- 
+    
     NSGraphicsContext *nsGraphicsContext;
     nsGraphicsContext = [NSGraphicsContext graphicsContextWithGraphicsPort:cgctx
                                                                    flipped:NO];
     [NSGraphicsContext saveGraphicsState];
     [NSGraphicsContext setCurrentContext:nsGraphicsContext];
     
-    CGContextSetFillColorWithColor(cgctx,  CGColorCreateGenericGray(1.0, 1.0));
+    CGContextSetFillColorWithColor(cgctx,  CGColorCreateGenericGray(0.0, 1.0));
     CGContextFillRect(cgctx, CGRectMake(0, 0, 96, 96));
     
-
+    
     
     
     
     /*
-        Draw the template image
+     Draw the template image
      */
     [inImage drawAtPoint:NSMakePoint(0, 0) fromRect:NSMakeRect(0, 0, 96, 96) operation:NSCompositeSourceAtop fraction:1.0];
     
     
     
     /*
-        Draw the counters
+     Draw the Weather
      */
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     [style setAlignment:NSCenterTextAlignment];
     
-    NSDictionary *dict =
+    NSDictionary * dict =
     [[NSDictionary dictionaryWithObjectsAndKeys:
       [NSColor colorWithDeviceWhite:0.0 alpha:1.0],NSForegroundColorAttributeName,
       style, NSParagraphStyleAttributeName,
-      [NSFont fontWithName:@"MetaWatch Large 16pt" size:16.0], NSFontAttributeName,nil]retain];   
-
+      [NSFont fontWithName:@"MetaWatch Small caps 8pt" size:8.0], NSFontAttributeName,nil]retain];   
     
-    [[dataDict objectForKey:@"pushcount"] drawInRect:CGRectMake(13, 2, 20, 16) withAttributes:dict];
-    [[dataDict objectForKey:@"phonecount"] drawInRect:CGRectMake(47, 2, 10, 16) withAttributes:dict];
+    [[NSString stringWithFormat:@"Connected to: %@",CSCopyMachineName() ] drawInRect:CGRectMake(45, 30, 51, 30) withAttributes:dict];
     
-    [[dataDict objectForKey:@"tweetcount"] drawInRect:CGRectMake(75, 2, 10, 16) withAttributes:dict];
+    NSDictionary *weather = [dataDict objectForKey:@"weatherDict"];
+    NSString *condition = [weather objectForKey:@"condition"];
+    NSString *temp = [weather objectForKey:@"temp_c"];
+    NSImage *weatherIcon;
+    if ([condition isEqualToString:@"Clear"]) {
+        weatherIcon=[NSImage imageNamed:@"weather_sunny.bmp"];
+    }else if ([condition isEqualToString:@"Rain"]) {
+        weatherIcon=[NSImage imageNamed:@"weather_rain.bmp"];
+    }else if ([condition isEqualToString:@"Fog"]) {
+        weatherIcon=[NSImage imageNamed:@"weather_cloudy.bmp"];
+    }else if ([condition isEqualToString:@"Cloudy"]) {
+        weatherIcon=[NSImage imageNamed:@"weather_cloudy.bmp"];
+    }else if ([condition isEqualToString:@"Mostly Sunny"]) {
+        weatherIcon=[NSImage imageNamed:@"weather_sunny.bmp"];
+    }else if ([condition isEqualToString:@"Chance of Showers"]) {
+        weatherIcon=[NSImage imageNamed:@"weather_rain.bmp"];
+    }
     
-    [dict release];
+    [weatherIcon drawAtPoint:NSMakePoint(5, 42) fromRect:NSMakeRect(0, 0, 24, 24) operation:NSCompositeCopy fraction:1.0];
+    [condition drawAtPoint:CGPointMake(5, 37) withAttributes:dict];
+    
+    
+    /*
+        Draw the temp in Larger font
+     */
     dict =
     [[NSDictionary dictionaryWithObjectsAndKeys:
       [NSColor colorWithDeviceWhite:0.0 alpha:1.0],NSForegroundColorAttributeName,
       style, NSParagraphStyleAttributeName,
-      [NSFont fontWithName:@"MetaWatch Large caps 8pt" size:8.0], NSFontAttributeName,nil]retain];   
+      [NSFont fontWithName:@"MetaWatch Large 16pt" size:16.0], NSFontAttributeName,nil]retain];  
     
-    [[NSString stringWithFormat:@"Connected to: %@",CSCopyMachineName() ] drawInRect:CGRectMake(0, 35, 96, 30) withAttributes:dict];
+    [temp drawAtPoint:CGPointMake(29, 46) withAttributes:dict];
+    [dict release];
+    
+    /*
+        Draw the ° sign seperately using a smaller font
+     */
+    dict =
+    [[NSDictionary dictionaryWithObjectsAndKeys:
+      [NSColor colorWithDeviceWhite:0.0 alpha:1.0],NSForegroundColorAttributeName,
+      style, NSParagraphStyleAttributeName,
+      [NSFont fontWithName:@"MetaWatch Large caps 8pt" size:8.0], NSFontAttributeName,nil]retain]; 
+    [@"°" drawAtPoint:CGPointMake(40, 53) withAttributes:dict];
     
     
     
     
     
     /*
-        Get the ImageData
+     Draw the counters
+     */
+    dict =
+    [[NSDictionary dictionaryWithObjectsAndKeys:
+      [NSColor colorWithDeviceWhite:0.0 alpha:1.0],NSForegroundColorAttributeName,
+      style, NSParagraphStyleAttributeName,
+      [NSFont fontWithName:@"MetaWatch Large caps 8pt" size:8.0], NSFontAttributeName,nil]retain];   
+    
+    
+    [[dataDict objectForKey:@"pushcount"] drawInRect:CGRectMake(11, 3, 20, 10) withAttributes:dict];
+    [[dataDict objectForKey:@"phonecount"] drawInRect:CGRectMake(47, 3, 10, 10) withAttributes:dict];
+    
+    [[dataDict objectForKey:@"tweetcount"] drawInRect:CGRectMake(75, 3, 10, 10) withAttributes:dict];
+    
+    [dict release];
+    
+    
+    
+    
+    
+    
+    
+    /*
+     Get the ImageData
      */
     
     const char *data = CGBitmapContextGetData (cgctx);
@@ -464,6 +579,9 @@
 #else
 
 
+
+
+#pragma mark - iOS Code
 
 +(NSData* )imageDataForText:(NSString *)text {
     NSLog(@"**** Making image for text: %@", text);

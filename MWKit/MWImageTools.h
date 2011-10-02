@@ -19,4 +19,16 @@
 @interface MWImageTools : NSObject
 
 
++(CGContextRef) CreateContext :(CGImageRef) inImage;
++(NSData*) imageDataForCGImage:(CGImageRef)inImage;
++(NSData* )imageDataForText:(NSString *)text;
++(NSData* )imageDataForNotification:(NSString *)text withContent:(NSString *)content andSource:(NSString*)src;
++(NSData*)imageDataForHomeScreen:(NSDictionary*)dataDict;
+
+#if !TARGET_OS_IPHONE
++(NSData*) imageDataForImage:(NSImage*)inImage;
+
+#endif 
+
+
 @end
