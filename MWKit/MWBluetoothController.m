@@ -280,8 +280,9 @@ static MWBluetoothController *sharedController;
         // Alternatively, the asynchronous version of this method could be used which would queue up the buffer and return immediately.
 
         NSData *frame = [NSData dataWithBytes:(void*)msg length:numBytesToSend];
-        [self performSelectorInBackground:@selector(performAsyncWrite:) withObject:frame];
-        //[self performSelectorInBackground:@selector(performAsyncWrite:) withObject:frame];
+       
+         [mRFCOMMChannel writeSync:(void*)msg length:numBytesToSend ];
+        // [self performSelectorInBackground:@selector(performAsyncWrite:) withObject:frame];
         
         //result = [mRFCOMMChannel writeAsync:(void*)msg length:numBytesToSend refcon:NULL];
         
@@ -300,7 +301,7 @@ static MWBluetoothController *sharedController;
     
     [[MWMetaWatch sharedWatch]appendToLog:logString];
 
-     [NSThread sleepForTimeInterval:0.1];
+    // [NSThread sleepForTimeInterval:0.1];
     // usleep(100000);
 }
 
