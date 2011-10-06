@@ -96,6 +96,7 @@
 -(void)getDeviceType;
 
 -(void)getRTC;
+-(void)setRTC;
 
 -(void)enableButton:(unsigned char)mode index:(unsigned char)buttonIndex type:(unsigned char)buttonType;
 -(void)disableButton:(unsigned char)mode index:(unsigned char)buttonIndex type:(unsigned char)buttonType;

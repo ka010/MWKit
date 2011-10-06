@@ -473,7 +473,9 @@
       style, NSParagraphStyleAttributeName,
       [NSFont fontWithName:@"MetaWatch Small caps 8pt" size:8.0], NSFontAttributeName,nil]retain];   
     
-    [[NSString stringWithFormat:@"Connected to: %@",CSCopyMachineName() ] drawInRect:CGRectMake(45, 30, 51, 30) withAttributes:dict];
+    
+    
+    [[NSString stringWithFormat:@"%@",CSCopyMachineName() ] drawInRect:CGRectMake(45, 30, 51, 30) withAttributes:dict];
     
     NSDictionary *weather = [dataDict objectForKey:@"weatherDict"];
     NSString *condition = [weather objectForKey:@"condition"];
@@ -491,7 +493,10 @@
         weatherIcon=[NSImage imageNamed:@"weather_sunny.bmp"];
     }else if ([condition isEqualToString:@"Chance of Showers"]) {
         weatherIcon=[NSImage imageNamed:@"weather_rain.bmp"];
+    }else if ([condition isEqualToString:@"Chance of Rain"]) {
+        weatherIcon=[NSImage imageNamed:@"weather_rain.bmp"];
     }
+
     
     [weatherIcon drawAtPoint:NSMakePoint(5, 42) fromRect:NSMakeRect(0, 0, 24, 24) operation:NSCompositeCopy fraction:1.0];
     [condition drawAtPoint:CGPointMake(5, 37) withAttributes:dict];

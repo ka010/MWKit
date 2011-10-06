@@ -422,6 +422,35 @@ static MWMetaWatch *sharedWatch;
 }
 
 
+
+-(void)setRTC {
+    
+    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    
+    NSDateComponents *components = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSWeekdayCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:date];
+
+    unsigned char data[10];
+    
+    
+    
+    data[0]=components.year<<8;   
+    data[1]=components.year;
+    data[2]=components.month;
+    data[3]=components.day;
+    data[4]=components.weekday;
+    data[5]=components.hour;
+    data[6]=components.minute;
+    data[7]=components.second;
+    data[8]=0x00;
+    data[9]=0x00;
+
+    
+    [self tx:kMSG_TYPE_SET_RTC options:0x00 data:data len:10];
+
+}
+
+
 -(void)buzz {
     unsigned char data[] = { 0x01, 0xf4, 0x01 ,0xf4, 0x01, 0x01};
     [self tx:kMSG_TYPE_SET_VIBRATE_MODE options:0x00 data:data len:6];
