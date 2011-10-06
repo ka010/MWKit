@@ -162,7 +162,8 @@ static MWMetaWatch *sharedWatch;
     }else if (msgType==kMSG_TYPE_LOW_BATTERY_WARNING_MESSAGE) {
         
     }else if (msgType==kMSG_TYPE_READ_BATTERY_VOLATRE_RESPONSE) {
-        
+        NSNumber *voltage = [NSNumber numberWithChar:data[0]];
+        NSLog(@"didget Voltage:%@ ", voltage);
     }
     
     int i =0;
@@ -217,7 +218,7 @@ static MWMetaWatch *sharedWatch;
     
     
     int row=0;
-    for (row=0; row<96;row+=1) {
+    for (row=0; row<96;row+=2) {
         
         unsigned char rowData[12];
         
@@ -251,7 +252,8 @@ static MWMetaWatch *sharedWatch;
             rowBData[col/8]=byteB;
         }
         NSLog(@"%i",row);
-        [self writeBuffer:mode row:row data:rowData];
+        [self writeBuffer:mode rowA:row dataA:rowData rowB:row+1 dataB:rowBData];
+        //  [self writeBuffer:mode row:row data:rowData];
 
     }
 
@@ -346,12 +348,13 @@ static MWMetaWatch *sharedWatch;
     data[0]=rowA;
     memcpy((data+1), inputAData, 12);
     
-    data[13]=0x00;
-    data[14]=rowB;
-    memcpy((data+15), inputBData, 11);
+    //data[13]=0x00;
+    data[13]=rowB;
+    memcpy((data+14), inputBData, 12);
     
     unsigned char options=mode;
     
+    // NSLog(@"%02x",options);
     [self tx:kMSG_TYPE_WRITE_BUFFER options:options data:data len:26];   
 }
 
@@ -483,6 +486,13 @@ static MWMetaWatch *sharedWatch;
 
 -(void)readButtonConfiguration:(unsigned char)mode index:(unsigned char)buttonIndex type:(unsigned char)buttonType {
     // TODO
+}
+
+-(void)readBatteryVoltage {
+    unsigned char data[1];
+    
+    data[0]=0x00;
+    [self tx:kMSG_TYPE_READ_BATTERY_VOLTAGE_MESSAGE options:0x00 data:data len:1]; 
 }
 
 

@@ -85,6 +85,8 @@
 
 -(void)testWriteBuffer;
 -(void)writeBuffer:(unsigned char)mode row:(unsigned char)row data:(unsigned char*)inputData;
+-(void)writeBuffer:(unsigned char)mode rowA:(unsigned char)rowA dataA:(unsigned char*)inputAData rowB:(unsigned char)rowB dataB:(unsigned char*)inputBData;
+
 
 -(void)loadTemplate:(unsigned char)mode;
 -(void)updateDisplay:(unsigned char)mode ;
@@ -102,6 +104,7 @@
 -(void)disableButton:(unsigned char)mode index:(unsigned char)buttonIndex type:(unsigned char)buttonType;
 -(void)readButtonConfiguration:(unsigned char)mode index:(unsigned char)buttonIndex type:(unsigned char)buttonType;
 
+-(void)readBatteryVoltage;
 
 -(void)writeImage:(NSData*)imgData forMode:(unsigned char)mode;
 -(void)writeText:(NSString*)text;
