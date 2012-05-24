@@ -491,6 +491,8 @@
         weatherIcon=[NSImage imageNamed:@"weather_cloudy.bmp"];
     }else if ([condition isEqualToString:@"Mostly Sunny"]) {
         weatherIcon=[NSImage imageNamed:@"weather_sunny.bmp"];
+    }else if ([condition isEqualToString:@"Partly Sunny"]) {
+        weatherIcon=[NSImage imageNamed:@"weather_sunny.bmp"];
     }else if ([condition isEqualToString:@"Chance of Showers"]) {
         weatherIcon=[NSImage imageNamed:@"weather_rain.bmp"];
     }else if ([condition isEqualToString:@"Chance of Rain"]) {

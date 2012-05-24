@@ -279,7 +279,7 @@ static MWBluetoothController *sharedController;
         // This method won't return until the buffer has been passed to the Bluetooth hardware to be sent to the remote device.
         // Alternatively, the asynchronous version of this method could be used which would queue up the buffer and return immediately.
 
-        NSData *frame = [NSData dataWithBytes:(void*)msg length:numBytesToSend];
+        //  NSData *frame = [NSData dataWithBytes:(void*)msg length:numBytesToSend];
        
          [mRFCOMMChannel writeSync:(void*)msg length:numBytesToSend ];
         // [self performSelectorInBackground:@selector(performAsyncWrite:) withObject:frame];

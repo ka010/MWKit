@@ -251,7 +251,7 @@ static MWMetaWatch *sharedWatch;
             rowData[col/8]=byte;
             rowBData[col/8]=byteB;
         }
-        NSLog(@"%i",row);
+        //        NSLog(@"%i",row);
         [self writeBuffer:mode rowA:row dataA:rowData rowB:row+1 dataB:rowBData];
         //  [self writeBuffer:mode row:row data:rowData];
 
