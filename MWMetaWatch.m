@@ -3,7 +3,7 @@
 //  MWKit
 //
 //  Created by Kai Aras on 9/19/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 010dev. All rights reserved.
 //
 
 #import "MWMetaWatch.h"
@@ -51,7 +51,7 @@ static MWMetaWatch *sharedWatch;
 #pragma mark - Public Methods
 
 
--(void)setConnectionController:(id)aController {
+-(void)setConnectionController:(MWConnectionController*)aController {
     connectionController = aController;
     [self.connectionController setDelegate:self];
 }
@@ -86,13 +86,6 @@ static MWMetaWatch *sharedWatch;
 -(void)appendToLog:(NSString*)s {
     self.logString = [self.logString stringByAppendingFormat:@"%@",s];
 }
-
-
-
-
-
-
-
 
 
 
@@ -328,7 +321,7 @@ static MWMetaWatch *sharedWatch;
     memset(data, 0,12);
     data[0]=row;
     memcpy((data+1), inputData, 12);
-    int i=0;  
+//    int i=0;  
 //    for ( i=0; i<13;i++) {
 //        //  NSLog(@"i:%i 0x%2x",i, data[i]);
 //    }    

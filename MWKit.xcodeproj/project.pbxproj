@@ -156,8 +156,6 @@
 		4E8FB05B1427247C005854AA = {
 			isa = PBXGroup;
 			children = (
-				4E6A116C142CC02E00B025C0 /* QuartzCore.framework */,
-				4E6A115F142CB91F00B025C0 /* CoreGraphics.framework */,
 				4E96A08F142AA90900CFAA5F /* Shared */,
 				4E8FB0701427247C005854AA /* MWKit */,
 				4E96A0431429F5C100CFAA5F /* MWKitMobile */,
@@ -178,6 +176,8 @@
 		4E8FB0691427247C005854AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E6A115F142CB91F00B025C0 /* CoreGraphics.framework */,
+				4E6A116C142CC02E00B025C0 /* QuartzCore.framework */,
 				4E8A4BA2143542ED008CDA90 /* libBTstack.dylib */,
 				4E96A0541429F68400CFAA5F /* UIKit.framework */,
 				4EE38DC31429494F00BDBD76 /* CoreFoundation.framework */,

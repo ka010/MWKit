@@ -3,11 +3,12 @@
 //  MWKit
 //
 //  Created by Kai Aras on 9/19/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 010dev. All rights reserved.
 //
 
 #import "MWBluetoothController.h"
 #import "MWKit.h"
+#import "crc16ccitt.h"
 
 @implementation MWBluetoothController
 
@@ -38,7 +39,7 @@ static MWBluetoothController *sharedController;
 }
 
 
--(void)openChannelWithAddressString:(NSString*)addr {
+-(BOOL)openChannelWithAddressString:(NSString*)addr {
     IOBluetoothDevice *device = [IOBluetoothDevice deviceWithAddressString:addr];
 	IOBluetoothSDPUUID *sppServiceUUID = [IOBluetoothSDPUUID uuid16:kBluetoothSDPUUID16ServiceClassSerialPort];
 	// Finds the service record that describes the service (UUID) we are looking for:
@@ -47,7 +48,7 @@ static MWBluetoothController *sharedController;
 	if ( sppServiceRecord == nil )
 	{
 		NSLog( @"Error - no spp service in selected device.  ***This should never happen since the selector forces the user to select only devices with spp.***\n" );
-		return FALSE;
+		return NO;
 	}
     
 	// To connect we need a device to connect and an RFCOMM channel ID to open on the device:
@@ -55,7 +56,7 @@ static MWBluetoothController *sharedController;
 	if ( [sppServiceRecord getRFCOMMChannelID:&rfcommChannelID] != kIOReturnSuccess )
 	{
 		NSLog( @"Error - no spp service in selected device.  ***This should never happen an spp service must have an rfcomm channel id.***\n" );
-		return FALSE;
+		return NO;
 	}
     
 	// Open asyncronously the rfcomm channel when all the open sequence is completed my implementation of "rfcommChannelOpenComplete:" will be called.
@@ -67,17 +68,17 @@ static MWBluetoothController *sharedController;
 		
 		[self closeDeviceConnectionOnDevice:device];
 		
-		return FALSE;
+		return NO;
 	}
     
     
 	mBluetoothDevice = device;
 	[mBluetoothDevice  retain];
 	[mRFCOMMChannel retain];
-
+    return YES;
 }
 
--(void)startDiscovery
+-(BOOL)startDiscovery
 {
     IOBluetoothDeviceSelectorController	*deviceSelector;
 	IOBluetoothSDPUUID					*sppServiceUUID;
@@ -89,7 +90,7 @@ static MWBluetoothController *sharedController;
 	if ( deviceSelector == nil )
 	{
 		NSLog( @"Error - unable to allocate IOBluetoothDeviceSelectorController.\n" );
-		return FALSE;
+		return NO;
 	}
     
 	// Create an IOBluetoothSDPUUID object for the chat service UUID
@@ -104,7 +105,7 @@ static MWBluetoothController *sharedController;
 	if ( [deviceSelector runModal] != kIOBluetoothUISuccess )
 	{
 		NSLog( @"User has cancelled the device selection.\n" );
-		return FALSE;
+		return NO;
 	}
     
 	// Get the list of devices the user has selected.
@@ -114,7 +115,7 @@ static MWBluetoothController *sharedController;
 	if ( ( deviceArray == nil ) || ( [deviceArray count] == 0 ) )
 	{
 		NSLog( @"Error - no selected device.  ***This should never happen.***\n" );
-		return FALSE;
+		return NO;
 	}
 	
 	// The device we want is the first in the array (even if the user somehow selected more than
@@ -127,7 +128,7 @@ static MWBluetoothController *sharedController;
 	if ( sppServiceRecord == nil )
 	{
 		NSLog( @"Error - no spp service in selected device.  ***This should never happen since the selector forces the user to select only devices with spp.***\n" );
-		return FALSE;
+		return NO;
 	}
     
 	// To connect we need a device to connect and an RFCOMM channel ID to open on the device:
@@ -135,7 +136,7 @@ static MWBluetoothController *sharedController;
 	if ( [sppServiceRecord getRFCOMMChannelID:&rfcommChannelID] != kIOReturnSuccess )
 	{
 		NSLog( @"Error - no spp service in selected device.  ***This should never happen an spp service must have an rfcomm channel id.***\n" );
-		return FALSE;
+		return NO;
 	}
     
 	// Open asyncronously the rfcomm channel when all the open sequence is completed my implementation of "rfcommChannelOpenComplete:" will be called.
@@ -147,7 +148,7 @@ static MWBluetoothController *sharedController;
 		
 		[self closeDeviceConnectionOnDevice:device];
 		
-		return FALSE;
+		return NO;
 	}
     
 
@@ -155,7 +156,7 @@ static MWBluetoothController *sharedController;
 	[mBluetoothDevice  retain];
 	[mRFCOMMChannel retain];
     
-	return TRUE;
+	return YES;
 }
 
 
@@ -208,7 +209,7 @@ static MWBluetoothController *sharedController;
             if ( [sppServiceRecord getRFCOMMChannelID:&rfcommChannelID] != kIOReturnSuccess )
             {
                 NSLog( @"Error - no spp service in selected device.  ***This should never happen an spp service must have an rfcomm channel id.***\n" );
-                return FALSE;
+                return;
             }
             if ( ( [mBluetoothDevice openRFCOMMChannelAsync:&mRFCOMMChannel withChannelID:rfcommChannelID delegate:self] != kIOReturnSuccess ) && ( mRFCOMMChannel != nil ) )
             {

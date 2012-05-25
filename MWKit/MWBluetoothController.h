@@ -3,7 +3,7 @@
 //  MWKit
 //
 //  Created by Kai Aras on 9/19/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 010dev. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -26,7 +26,7 @@
 
 +(MWBluetoothController *) sharedController;
 
--(void)startDiscovery;
+-(BOOL)startDiscovery;
 -(void)closeChannel;
--(void)openChannelWithAddressString:(NSString*)addr;
+-(BOOL)openChannelWithAddressString:(NSString*)addr;
 @end

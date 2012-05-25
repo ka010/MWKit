@@ -3,7 +3,7 @@
 //  MWKit
 //
 //  Created by Kai Aras on 9/21/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 010dev. All rights reserved.
 //
 
 #import "MWSerialPortController.h"
@@ -24,7 +24,7 @@
 #include <time.h>
 #include <AvailabilityMacros.h>
 #include <IOKit/serial/ioss.h>
-
+#import "crc16ccitt.h"
 
 @implementation MWSerialPortController
 
@@ -65,7 +65,6 @@ static MWSerialPortController *sharedController;
 static int OpenSerialPort(const char *bsdPath)
 {
     int				fileDescriptor = -1;
-    int				handshake;
     struct termios	options;
     
     // Open the serial port read/write, with no controlling terminal, and don't wait for a connection.
@@ -348,7 +347,7 @@ void CloseSerialPort(int fileDescriptor)
     fileDescriptor = OpenSerialPort("/dev/tty.MetaWatch");
     if (-1 == fileDescriptor)
     {
-        return EX_IOERR;
+        return;
     }else {
         [self.delegate performSelector:@selector(connectionControllerDidOpenChannel:) withObject:self];
     }
@@ -360,12 +359,7 @@ void CloseSerialPort(int fileDescriptor)
 
 -(void)tx:(unsigned char)cmd options:(unsigned char)options data:(unsigned char*)inputData len:(unsigned char)len {
     
-    char		buffer[256];	// Input buffer
-    char		*bufPtr;		// Current char in buffer
-    ssize_t		numBytes;		// Number of bytes read or written
-    int			tries;			// Number of tries so far
-    Boolean		result = false;
-    
+      
     
     unsigned short crc;
     unsigned char data[32]; //{0x01,0x0c,0x23,0x00, 0x01, 0xf4, 0x01 ,0xf4, 0x01, 0x01, 0x81, 0xb1};
@@ -412,7 +406,6 @@ void CloseSerialPort(int fileDescriptor)
 
 
 -(void)performAsyncWrite:(NSData*)data {
-
 
     //tcdrain(fileDescriptor);
 

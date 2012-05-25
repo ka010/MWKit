@@ -3,7 +3,7 @@
 //  MWKit
 //
 //  Created by Kai Aras on 9/19/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 010dev. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -67,13 +67,13 @@
 
 @interface MWMetaWatch : NSObject <MWConnectionControllerDelegate>{
     BOOL isConnected;
-    id connectionController;
+    MWConnectionController *connectionController;
 }
 
 +(MWMetaWatch *) sharedWatch;
 
 @property (retain) NSString *logString;
-@property (assign) id connectionController;
+@property (assign) MWConnectionController *connectionController;
 
 -(void)startSearch;
 -(void)openChannel;
@@ -111,6 +111,9 @@
 -(void)writeNotification:(NSString*)title withContent:(NSString*)text fromSource:(NSString*)src;
 -(void)writeIdleScreenWithData:(NSMutableDictionary*)dataDict;
 
+
+
+-(void)appendToLog:(NSString*)s;
 
 
 @end

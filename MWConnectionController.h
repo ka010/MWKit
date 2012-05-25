@@ -3,7 +3,7 @@
 //  MWKit
 //
 //  Created by Kai Aras on 9/22/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 010dev. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
