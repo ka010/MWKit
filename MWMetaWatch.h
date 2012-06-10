@@ -89,7 +89,7 @@
 
 
 -(void)loadTemplate:(unsigned char)mode;
--(void)updateDisplay:(unsigned char)mode ;
+-(void)updateDisplay:(unsigned char)mode;
 
 -(void)setWatchHidden:(BOOL)hidden;
 -(void)setDisplayInverted:(BOOL)inverted;
@@ -107,6 +107,7 @@
 -(void)readBatteryVoltage;
 
 -(void)writeImage:(NSData*)imgData forMode:(unsigned char)mode;
+-(void)writeImage:(NSData*)imgData forMode:(unsigned char)mode linesPerWrite:(int)numLines;
 -(void)writeText:(NSString*)text;
 -(void)writeNotification:(NSString*)title withContent:(NSString*)text fromSource:(NSString*)src;
 -(void)writeIdleScreenWithData:(NSMutableDictionary*)dataDict;

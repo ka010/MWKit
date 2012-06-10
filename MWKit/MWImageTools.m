@@ -40,6 +40,7 @@
         pixelsWide = CGImageGetWidth(inImage);
         pixelsHigh = CGImageGetHeight(inImage);
     }
+
     
     // Get image width, height. We'll use the entire image.
     
@@ -93,7 +94,9 @@
     return context;
 }
 
-
++(NSData *)imageDataForUIImage:(UIImage *)inImage {
+    return [self imageDataForCGImage:inImage.CGImage];
+}
 
 +(NSData*) imageDataForCGImage:(CGImageRef)inImage
 {
@@ -103,7 +106,7 @@
     if (cgctx == NULL) 
     { 
         // error creating context
-        return;
+        return nil;
     }
     
     // Get image width, height. We'll use the entire image.
@@ -592,7 +595,7 @@
 
 +(NSData* )imageDataForText:(NSString *)text {
     NSLog(@"**** Making image for text: %@", text);
-    UIFont *font = [UIFont fontWithName:@"Helvetica" size:13];  
+    UIFont *font = [UIFont fontWithName:@"MetaWatch Large caps 8pt" size:8];  
     CGSize size  = CGSizeMake(96, 96);
     
     
@@ -604,9 +607,14 @@
         UIGraphicsBeginImageContext(size);
     
     CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
+       
+    
     CGContextSetFillColorWithColor(ctx, [[UIColor whiteColor]CGColor]);
     CGContextFillRect(ctx, CGRectMake(0, 0, 96, 96));
     
+    CGContextSetTextDrawingMode(ctx, kCGTextFill);
+
     CGContextSetFillColorWithColor(ctx, [[UIColor blackColor]CGColor]);
     
     [text drawInRect:CGRectMake(0, 35, 96, 51) withFont:font lineBreakMode:UILineBreakModeWordWrap alignment:UITextAlignmentCenter];
@@ -625,7 +633,7 @@
     if (cgctx == NULL) 
     { 
         // error creating context
-        return;
+        return nil;
     }
     
     size_t w = CGImageGetWidth(imgRef);
@@ -733,7 +741,7 @@
     
 }
 
-+(NSData* )imageDataForNotification:(NSString *)text withContent:(NSString *)content {
++(NSData* )imageDataForNotification:(NSString *)text withContent:(NSString *)content andSource:(NSString *)src {
     NSLog(@"**** Making image for text: %@ content: %@", text,content);
     UIFont *font = [UIFont fontWithName:@"Arial" size:10];  
     UIFont *titleFont = [UIFont fontWithName:@"Arial" size:12];
@@ -807,23 +815,19 @@
 
 
 
--(UIImage *)imageForText:(NSString *)text {
++(UIImage *)imageForText:(NSString *)text {
     // set the font type and size
-    UIFont *font = [UIFont fontWithName:@"Helvetica" size:13];  
+    UIFont *font = [UIFont fontWithName:@"MetaWatch Large 16pt" size:16];  
     CGSize size  = CGSizeMake(96, 96);
     
     
     // check if UIGraphicsBeginImageContextWithOptions is available (iOS is 4.0+)
     if (UIGraphicsBeginImageContextWithOptions != NULL)
-        UIGraphicsBeginImageContextWithOptions(size,NO,0.0);
+        UIGraphicsBeginImageContextWithOptions(size,NO,1.0f);
     else
         // iOS is < 4.0 
         UIGraphicsBeginImageContext(size);
-    
-    // optional: add a shadow, to avoid clipping the shadow you should make the context size bigger 
-    //
-    // CGContextRef ctx = UIGraphicsGetCurrentContext();
-    // CGContextSetShadowWithColor(ctx, CGSizeMake(1.0, 1.0), 5.0, [[UIColor grayColor] CGColor]);
+
     
     // draw in context, you can use also drawInRect:withFont:
     //[text drawAtPoint:CGPointMake(0.0, 40.0) withFont:font];
@@ -833,7 +837,7 @@
     
     CGContextSetFillColorWithColor(ctx, [[UIColor blackColor]CGColor]);
     
-    [text drawInRect:CGRectMake(0, 35, 96, 51) withFont:font lineBreakMode:UILineBreakModeWordWrap alignment:UITextAlignmentCenter];
+    [text drawInRect:CGRectMake(0, 0, 96, 96) withFont:font lineBreakMode:UILineBreakModeWordWrap alignment:UITextAlignmentCenter];
     
     // transfer image
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();

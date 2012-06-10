@@ -18,7 +18,6 @@
 		4E8A4A691433062E008CDA90 /* mw8_7.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4E6A1137142B73DE00B025C0 /* mw8_7.ttf */; };
 		4E8A4A6A1433062E008CDA90 /* MetaWatch Large 16pt.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4E6A1138142B73DE00B025C0 /* MetaWatch Large 16pt.ttf */; };
 		4E8A4B0014351FA0008CDA90 /* home_mac.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 4E8A4AFF14351F9F008CDA90 /* home_mac.bmp */; };
-		4E8A4BA3143542ED008CDA90 /* libBTstack.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8A4BA2143542ED008CDA90 /* libBTstack.dylib */; };
 		4E8FB06B1427247C005854AA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8FB06A1427247C005854AA /* Cocoa.framework */; };
 		4E8FB0751427247C005854AA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E8FB0731427247C005854AA /* InfoPlist.strings */; };
 		4E8FB0821427249C005854AA /* crc16ccitt.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E8FB0801427249C005854AA /* crc16ccitt.h */; };
@@ -49,6 +48,9 @@
 		4E96A098142AB1FC00CFAA5F /* MWBTStackController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E96A096142AB1FC00CFAA5F /* MWBTStackController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4E96A099142AB1FC00CFAA5F /* MWBTStackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E96A097142AB1FC00CFAA5F /* MWBTStackController.m */; };
 		4E96A0E0142ABC4F00CFAA5F /* crc16ccitt.c in Sources */ = {isa = PBXBuildFile; fileRef = 4E8FB0811427249C005854AA /* crc16ccitt.c */; };
+		4EBFC6A01582F11200502723 /* MWCoreBluetoothController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EBFC69E1582F11200502723 /* MWCoreBluetoothController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4EBFC6A11582F11200502723 /* MWCoreBluetoothController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBFC69F1582F11200502723 /* MWCoreBluetoothController.m */; };
+		4EBFC6AE1582F3A900502723 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBFC6AD1582F3A900502723 /* CoreBluetooth.framework */; };
 		4ED87792142DE1AC009674B9 /* home.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 4ED87791142DE1AC009674B9 /* home.bmp */; };
 		4ED87793142DE1AC009674B9 /* home.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 4ED87791142DE1AC009674B9 /* home.bmp */; };
 		4EE38DBE1429483D00BDBD76 /* MWSerialPortController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EE38DBC1429483D00BDBD76 /* MWSerialPortController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -113,6 +115,9 @@
 		4E96A091142AA96400CFAA5F /* MWConnectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWConnectionController.m; sourceTree = "<group>"; };
 		4E96A096142AB1FC00CFAA5F /* MWBTStackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWBTStackController.h; sourceTree = "<group>"; };
 		4E96A097142AB1FC00CFAA5F /* MWBTStackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWBTStackController.m; sourceTree = "<group>"; };
+		4EBFC69E1582F11200502723 /* MWCoreBluetoothController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWCoreBluetoothController.h; sourceTree = "<group>"; };
+		4EBFC69F1582F11200502723 /* MWCoreBluetoothController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWCoreBluetoothController.m; sourceTree = "<group>"; };
+		4EBFC6AD1582F3A900502723 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk/System/Library/Frameworks/CoreBluetooth.framework; sourceTree = DEVELOPER_DIR; };
 		4ED87791142DE1AC009674B9 /* home.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = home.bmp; path = MWKitMobile/home.bmp; sourceTree = SOURCE_ROOT; };
 		4EE38DBC1429483D00BDBD76 /* MWSerialPortController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWSerialPortController.h; sourceTree = "<group>"; };
 		4EE38DBD1429483D00BDBD76 /* MWSerialPortController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWSerialPortController.m; sourceTree = "<group>"; };
@@ -137,9 +142,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EBFC6AE1582F3A900502723 /* CoreBluetooth.framework in Frameworks */,
 				4E96A0551429F68400CFAA5F /* UIKit.framework in Frameworks */,
 				4E96A0421429F5C100CFAA5F /* Foundation.framework in Frameworks */,
-				4E8A4BA3143542ED008CDA90 /* libBTstack.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +161,7 @@
 		4E8FB05B1427247C005854AA = {
 			isa = PBXGroup;
 			children = (
+				4EBFC6AD1582F3A900502723 /* CoreBluetooth.framework */,
 				4E96A08F142AA90900CFAA5F /* Shared */,
 				4E8FB0701427247C005854AA /* MWKit */,
 				4E96A0431429F5C100CFAA5F /* MWKitMobile */,
@@ -259,6 +265,8 @@
 				4E96A09A142AB44000CFAA5F /* BTStack */,
 				4E96A096142AB1FC00CFAA5F /* MWBTStackController.h */,
 				4E96A097142AB1FC00CFAA5F /* MWBTStackController.m */,
+				4EBFC69E1582F11200502723 /* MWCoreBluetoothController.h */,
+				4EBFC69F1582F11200502723 /* MWCoreBluetoothController.m */,
 			);
 			name = Mobile;
 			path = ../MWKit;
@@ -328,6 +336,7 @@
 				4E96A04F1429F61B00CFAA5F /* MWMetaWatch.h in Headers */,
 				4E96A092142AA96400CFAA5F /* MWConnectionController.h in Headers */,
 				4E6A115C142CB8CF00B025C0 /* MWImageTools.h in Headers */,
+				4EBFC6A01582F11200502723 /* MWCoreBluetoothController.h in Headers */,
 				4E96A098142AB1FC00CFAA5F /* MWBTStackController.h in Headers */,
 				4E96A04D1429F61600CFAA5F /* crc16ccitt.h in Headers */,
 				4E96A0711429FD2400CFAA5F /* BTDevice.h in Headers */,
@@ -449,6 +458,7 @@
 				4E96A093142AA96400CFAA5F /* MWConnectionController.m in Sources */,
 				4E96A099142AB1FC00CFAA5F /* MWBTStackController.m in Sources */,
 				4E6A115E142CB8CF00B025C0 /* MWImageTools.m in Sources */,
+				4EBFC6A11582F11200502723 /* MWCoreBluetoothController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

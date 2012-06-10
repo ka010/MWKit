@@ -132,6 +132,7 @@ static MWBTStackController *sharedController;
     
     // [[MWMetaWatch sharedWatch]appendToLog:logString];
     
+    
     [self performSelectorInBackground:@selector(performAsyncWrite:) withObject:[NSData dataWithBytes:(void*)data length:len+6] ];
 
   

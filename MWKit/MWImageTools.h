@@ -21,6 +21,8 @@
 
 +(CGContextRef) CreateContext :(CGImageRef) inImage;
 +(NSData*) imageDataForCGImage:(CGImageRef)inImage;
++(NSData*) imageDataForUIImage:(UIImage*)inImage;
++(UIImage *)imageForText:(NSString *)text;
 +(NSData* )imageDataForText:(NSString *)text;
 +(NSData* )imageDataForNotification:(NSString *)text withContent:(NSString *)content andSource:(NSString*)src;
 +(NSData*)imageDataForHomeScreen:(NSDictionary*)dataDict;

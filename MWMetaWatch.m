@@ -9,7 +9,10 @@
 #import "MWMetaWatch.h"
 #import "MWKit.h"
 
-
+@interface MWMetaWatch()
+-(void)_rx:(const char*)data;
+-(void)_tx:(unsigned char)cmd options:(unsigned char)options data:(unsigned char*)inputData len:(unsigned char)len;
+@end
 
 @implementation MWMetaWatch
 @synthesize logString;
@@ -114,28 +117,39 @@ static MWMetaWatch *sharedWatch;
 }
 
 -(void)connectionController:(MWConnectionController *)controller didReceiveData:(NSData *)data {
+    if (!data) {
+        return;
+    }
     const char* dataBytes = [data bytes];
-    [self didReceiveData:dataBytes];
+    [self _rx:dataBytes];
 }
 
 
-//-(void)didOpenChannel {
-//  
-//
-//    //   self.logString = [self.logString stringByAppendingFormat:@"** Connected to: %@ \n", [[mRFCOMMChannel getDevice]getName]];
-//
-//    
-//    // [self buzz];
-//    
-//    //  [self getDeviceType];
-//    
-//}
-//
-//-(void)didCloseChannel {
-//
-//}
 
--(void)didReceiveData:(const char*)data {
+
+
+
+
+
+
+
+#pragma mark - MetaWatch Private
+
+
+-(void)_tx:(unsigned char)cmd options:(unsigned char)options data:(unsigned char*)inputData len:(unsigned char)len {
+
+    [self.connectionController tx:cmd options:options data:inputData len:len];
+    
+    
+    if (cmd!=kMSG_TYPE_WRITE_BUFFER) {        
+    
+        [[NSNotificationCenter defaultCenter]postNotificationName:MWKitDidSendData object:nil];
+    }
+
+}
+
+
+-(void)_rx:(const char*)data {
     
     const char msgType = data[2];
     
@@ -162,98 +176,118 @@ static MWMetaWatch *sharedWatch;
     int i =0;
     for (i=0; i<(sizeof(data)/sizeof(unsigned char)); i++) {
         NSLog(@"%02x",data[i]);
-        self.logString =  [self.logString stringByAppendingFormat:@"%02x ",data[i]];
+        
+        self.logString =  [self.logString stringByAppendingFormat:@"0x%02x",data[i]];
     }
     self.logString = [self.logString stringByAppendingFormat:@"\n"];
     [[NSNotificationCenter defaultCenter]postNotificationName:MWKitDidReceiveData object:nil];
     
-
+    
 }
 
 
 
-
-
-
-
-
-
-
-
-#pragma mark - MetaWatch Interface
-
-
--(void)tx:(unsigned char)cmd options:(unsigned char)options data:(unsigned char*)inputData len:(unsigned char)len {
-
-    [self.connectionController tx:cmd options:options data:inputData len:len];
-    
-    
-    if (cmd!=kMSG_TYPE_WRITE_BUFFER) {
-        NSLog(@"not write buffer");
-        [[NSNotificationCenter defaultCenter]postNotificationName:MWKitDidSendData object:nil];
-
-    }
-
-}
-
+#pragma mark - MetaWatch Public 
 
 -(void)resetMode {
     [self updateDisplay:kMODE_IDLE];
 }
 
 
--(void)writeImage:(NSData*)imgData forMode:(unsigned char)mode {
-   
-    [self loadTemplate:mode];
 
+-(void)writeImage:(NSData*)imgData forMode:(unsigned char)mode  {
+    
+    [self writeImage:imgData forMode:mode linesPerWrite:1];
+}
+
+
+
+-(void)writeImage:(NSData*)imgData forMode:(unsigned char)mode linesPerWrite:(int)numLines {
+    [self loadTemplate:mode];
+    
     
     const char* data = [imgData bytes];
-    
-    
     int row=0;
-    for (row=0; row<96;row+=2) {
-        
-        unsigned char rowData[12];
-        
-        unsigned char rowBData[12];
-        memset(rowData, 0,12);
-        memset(rowBData, 0,12);
-        
-        int col=0;
-        for (col=0; col<96; col+=8) {
-            unsigned char byte=0x00;
-            unsigned char part[8];
-            
-            unsigned char byteB=0x00;
-            unsigned char partB[8];
-            
-            memcpy(part, data+row*96+col, 8);
-            memcpy(partB, data+((row+1)*96)+col, 8);
-            
-            int x=0;
-            for (x=0; x<8; x++) {
-                if( part[x]==0x00) {
-                    byte|=1<<x;
+
+    switch (numLines) {
+        case 1:
+            for (row=0; row<96;row++) {
+                
+                unsigned char rowData[12];
+                memset(rowData, 0,12);
+                
+                int col=0;
+                for (col=0; col<96; col+=8) {
+                    unsigned char byte=0x00;
+                    unsigned char part[8];
+                    memcpy(part, data+row*96+col, 8);
+                    
+                    int x=0;
+                    for (x=0; x<8; x++) {
+                        if( part[x]==0xFF) {
+                            byte|=1<<x;
+                        }
+                    }
+                    
+                    rowData[col/8]=byte;
+                    
                 }
                 
-                if( partB[x]==0x00) {
-                    byteB|=1<<x;
-                }
+                [self writeBuffer:mode row:row data:rowData];
+                
             }
-            
-            rowData[col/8]=byte;
-            rowBData[col/8]=byteB;
-        }
-        //        NSLog(@"%i",row);
-        [self writeBuffer:mode rowA:row dataA:rowData rowB:row+1 dataB:rowBData];
-        //  [self writeBuffer:mode row:row data:rowData];
+            break;
+        case 2:
+           
+            for (row=0; row<96;row+=2) {
+                
+                unsigned char rowData[12];
+                
+                unsigned char rowBData[12];
+                memset(rowData, 0,12);
+                memset(rowBData, 0,12);
+                
+                int col=0;
+                for (col=0; col<96; col+=8) {
+                    unsigned char byte=0x00;
+                    unsigned char part[8];
+                    
+                    unsigned char byteB=0x00;
+                    unsigned char partB[8];
+                    
+                    memcpy(part, data+row*96+col, 8);
+                    memcpy(partB, data+((row+1)*96)+col, 8);
+                    
+                    int x=0;
+                    for (x=0; x<8; x++) {
+                        if( part[x]==0x00) {
+                            byte|=1<<x;
+                        }
+                        
+                        if( partB[x]==0x00) {
+                            byteB|=1<<x;
+                        }
+                    }
+                    
+                    rowData[col/8]=byte;
+                    rowBData[col/8]=byteB;
+                }
+                //        NSLog(@"%i",row);
+                
+                [self writeBuffer:mode rowA:row dataA:rowData rowB:row+1 dataB:rowBData];
+                //[self writeBuffer:mode row:row data:rowData];
+                
+            }
 
+            break;
+        default:
+            break;
     }
-
+    
+        
     [self updateDisplay:mode];
     
 
-    
 }
 
 
@@ -327,7 +361,7 @@ static MWMetaWatch *sharedWatch;
 //    }    
     unsigned char options=mode|0x10;
     
-    [self tx:kMSG_TYPE_WRITE_BUFFER options:options data:data len:13];   
+    [self _tx:kMSG_TYPE_WRITE_BUFFER options:options data:data len:13];   
 }
 
 
@@ -348,7 +382,7 @@ static MWMetaWatch *sharedWatch;
     unsigned char options=mode;
     
     // NSLog(@"%02x",options);
-    [self tx:kMSG_TYPE_WRITE_BUFFER options:options data:data len:26];   
+    [self _tx:kMSG_TYPE_WRITE_BUFFER options:options data:data len:26];   
 }
 
 -(void)loadTemplate:(unsigned char)mode {
@@ -356,7 +390,7 @@ static MWMetaWatch *sharedWatch;
     
     unsigned char options=mode;
     data[0]=0x01;
-    [self tx:kMSG_TYPE_LOAD_TEMPLATE options:options data:data len:1];
+    [self _tx:kMSG_TYPE_LOAD_TEMPLATE options:options data:data len:1];
 }
 
 
@@ -365,7 +399,7 @@ static MWMetaWatch *sharedWatch;
     
     unsigned char options=mode|0x10;
     data[0]=0x00;
-    [self tx:kMSG_TYPE_UPDATE_DISPLAY options:options data:data len:1];
+    [self _tx:kMSG_TYPE_UPDATE_DISPLAY options:options data:data len:1];
 }
 
 
@@ -377,7 +411,7 @@ static MWMetaWatch *sharedWatch;
     }else {
         data[0]=0x00;
     }
-    [self tx:kMSG_TYPE_CONFIGURE_IDLE_BUFFER_SIZE options:0x00 data:data len:1];
+    [self _tx:kMSG_TYPE_CONFIGURE_IDLE_BUFFER_SIZE options:0x00 data:data len:1];
     
 }
 
@@ -389,7 +423,7 @@ static MWMetaWatch *sharedWatch;
     }else {
         data[1]=0x00;
     }
-    [self tx:kMSG_TYPE_CONFIGURE_MODE options:0x00 data:data len:2];
+    [self _tx:kMSG_TYPE_CONFIGURE_MODE options:0x00 data:data len:2];
 }
 
 
@@ -398,14 +432,14 @@ static MWMetaWatch *sharedWatch;
     unsigned char data[1];
     
     data[0]=0x00;
-    [self tx:kMSG_TYPE_GET_INFORMATION_STRING options:0x00 data:data len:1];
+    [self _tx:kMSG_TYPE_GET_INFORMATION_STRING options:0x00 data:data len:1];
 }
 
 -(void)getDeviceType{
     unsigned char data[1];
     
     data[0]=0x00;
-    [self tx:kMSG_TYPE_GET_DEVICE_TYPE options:0x00 data:data len:1];
+    [self _tx:kMSG_TYPE_GET_DEVICE_TYPE options:0x00 data:data len:1];
     
 }
 
@@ -414,7 +448,7 @@ static MWMetaWatch *sharedWatch;
     unsigned char data[1];
     
     data[0]=0x00;
-    [self tx:kMSG_TYPE_GET_RTC options:0x00 data:data len:1];
+    [self _tx:kMSG_TYPE_GET_RTC options:0x00 data:data len:1];
 }
 
 
@@ -442,14 +476,14 @@ static MWMetaWatch *sharedWatch;
     data[9]=0x00;
 
     
-    [self tx:kMSG_TYPE_SET_RTC options:0x00 data:data len:10];
+    [self _tx:kMSG_TYPE_SET_RTC options:0x00 data:data len:10];
 
 }
 
 
 -(void)buzz {
     unsigned char data[] = { 0x01, 0xf4, 0x01 ,0xf4, 0x01, 0x01};
-    [self tx:kMSG_TYPE_SET_VIBRATE_MODE options:0x00 data:data len:6];
+    [self _tx:kMSG_TYPE_SET_VIBRATE_MODE options:0x00 data:data len:6];
 }
 
 
@@ -463,7 +497,7 @@ static MWMetaWatch *sharedWatch;
     data[3]=0x34;
     data[4]=buttonType;
     
-    [self tx:kMSG_TYPE_ENABLE_BUTTON options:0x00 data:data len:5];
+    [self _tx:kMSG_TYPE_ENABLE_BUTTON options:0x00 data:data len:5];
     
 }
 
@@ -474,7 +508,7 @@ static MWMetaWatch *sharedWatch;
     data[1]=buttonIndex;
     data[2]=buttonType;
     
-    [self tx:kMSG_TYPE_ENABLE_BUTTON options:0x00 data:data len:3];
+    [self _tx:kMSG_TYPE_ENABLE_BUTTON options:0x00 data:data len:3];
 }
 
 -(void)readButtonConfiguration:(unsigned char)mode index:(unsigned char)buttonIndex type:(unsigned char)buttonType {
@@ -485,7 +519,7 @@ static MWMetaWatch *sharedWatch;
     unsigned char data[1];
     
     data[0]=0x00;
-    [self tx:kMSG_TYPE_READ_BATTERY_VOLTAGE_MESSAGE options:0x00 data:data len:1]; 
+    [self _tx:kMSG_TYPE_READ_BATTERY_VOLTAGE_MESSAGE options:0x00 data:data len:1]; 
 }
 
 
