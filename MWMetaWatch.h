@@ -108,6 +108,7 @@
 
 -(void)writeImage:(NSData*)imgData forMode:(unsigned char)mode;
 -(void)writeImage:(NSData*)imgData forMode:(unsigned char)mode linesPerWrite:(int)numLines;
+-(void)writeImage:(NSData*)imgData inRect:(CGRect)clippingRect forMode:(unsigned char)mode linesPerWrite:(int)numLines;
 -(void)writeText:(NSString*)text;
 -(void)writeNotification:(NSString*)title withContent:(NSString*)text fromSource:(NSString*)src;
 -(void)writeIdleScreenWithData:(NSMutableDictionary*)dataDict;

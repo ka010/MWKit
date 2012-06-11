@@ -12,7 +12,7 @@
 
 
 typedef enum {
-    MWFonttSizeSmallCaps = 0,
+    MWFontSizeSmallCaps = 0,
     MWFontSizeLargeCaps = 1,
     MWFontSizeLarge = 2,
 }MWFontSize;

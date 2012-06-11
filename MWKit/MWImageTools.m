@@ -839,7 +839,7 @@
     UIFont *font;
 
     switch (fontSize) {
-        case MWFonttSizeSmallCaps:
+        case MWFontSizeSmallCaps:
             font = [UIFont fontWithName:@"MetaWatch Small caps 8pt" size:8];  
             break;
         case MWFontSizeLargeCaps:

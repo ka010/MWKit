@@ -17,6 +17,7 @@
 @implementation MWMetaWatch
 @synthesize logString;
 
+#define kMWFullscreenRect CGRectMake(0, 0, 96, 96)
 
 static MWMetaWatch *sharedWatch;
 
@@ -200,18 +201,23 @@ static MWMetaWatch *sharedWatch;
     [self writeImage:imgData forMode:mode linesPerWrite:1];
 }
 
-
-
 -(void)writeImage:(NSData*)imgData forMode:(unsigned char)mode linesPerWrite:(int)numLines {
+    [self writeImage:imgData inRect:kMWFullscreenRect forMode:mode linesPerWrite:numLines];
+}
+
+-(void)writeImage:(NSData*)imgData inRect:(CGRect)clippingRect forMode:(unsigned char)mode linesPerWrite:(int)numLines {
     [self loadTemplate:mode];
     
     
     const char* data = [imgData bytes];
     int row=0;
 
+    int fromRow = clippingRect.origin.y;
+    int toRow =  fromRow + clippingRect.size.height;
+    
     switch (numLines) {
         case 1:
-            for (row=0; row<96;row++) {
+            for (row=fromRow; row<toRow;row++) {
                 
                 unsigned char rowData[12];
                 memset(rowData, 0,12);
@@ -238,7 +244,7 @@ static MWMetaWatch *sharedWatch;
             }
             break;
         case 2:
-           
+            // FIXME: use clippingRect
             for (row=0; row<96;row+=2) {
                 
                 unsigned char rowData[12];
