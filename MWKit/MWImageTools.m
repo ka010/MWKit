@@ -94,57 +94,6 @@
     return context;
 }
 
-+(NSData *)imageDataForUIImage:(UIImage *)inImage {
-    return [self imageDataForCGImage:inImage.CGImage];
-}
-
-+(NSData*) imageDataForCGImage:(CGImageRef)inImage
-{
-    
-       // Create the bitmap context
-    CGContextRef cgctx = [MWImageTools CreateContext:inImage];
-    if (cgctx == NULL) 
-    { 
-        // error creating context
-        return nil;
-    }
-    
-    // Get image width, height. We'll use the entire image.
-    size_t w = CGImageGetWidth(inImage);
-    size_t h = CGImageGetHeight(inImage);
-    CGRect rect = {{0,0},{w,h}}; 
-    
-    // Draw the image to the bitmap context. Once we draw, the memory 
-    // allocated for the context for rendering will then contain the 
-    // raw image data in the specified color space.
-    CGContextDrawImage(cgctx, rect, inImage); 
-    
-    // Now we can get a pointer to the image data associated with the bitmap
-    // context.
-    const char *data = CGBitmapContextGetData (cgctx);
-    
-    NSData* imgData = [NSData dataWithBytes:data length:96*96];
-    
-    CGImageRef imgRef = CGBitmapContextCreateImage(cgctx);
-    //UIImage* img = [UIImage imageWithCGImage:imgRef];
-    CGImageRelease(imgRef);
-    
-    
-    // When finished, release the context
-    CGContextRelease(cgctx); 
-    // Free image data memory for the context
-    
-    if (data)
-    {
-        free(data);
-    }
-    
-    
-    
-    
-    return imgData;
-}
-
 
 
 
@@ -592,6 +541,59 @@
 
 
 #pragma mark - iOS Code
+
++(NSData *)imageDataForUIImage:(UIImage *)inImage {
+    return [self imageDataForCGImage:inImage.CGImage];
+}
+
++(NSData*) imageDataForCGImage:(CGImageRef)inImage
+{
+    
+    // Create the bitmap context
+    CGContextRef cgctx = [MWImageTools CreateContext:inImage];
+    if (cgctx == NULL) 
+    { 
+        // error creating context
+        return nil;
+    }
+    
+    // Get image width, height. We'll use the entire image.
+    size_t w = CGImageGetWidth(inImage);
+    size_t h = CGImageGetHeight(inImage);
+    CGRect rect = {{0,0},{w,h}}; 
+    
+    // Draw the image to the bitmap context. Once we draw, the memory 
+    // allocated for the context for rendering will then contain the 
+    // raw image data in the specified color space.
+    CGContextDrawImage(cgctx, rect, inImage); 
+    
+    // Now we can get a pointer to the image data associated with the bitmap
+    // context.
+    const char *data = CGBitmapContextGetData (cgctx);
+    
+    NSData* imgData = [NSData dataWithBytes:data length:96*96];
+    
+    CGImageRef imgRef = CGBitmapContextCreateImage(cgctx);
+    //UIImage* img = [UIImage imageWithCGImage:imgRef];
+    CGImageRelease(imgRef);
+    
+    
+    // When finished, release the context
+    CGContextRelease(cgctx); 
+    // Free image data memory for the context
+    
+    if (data)
+    {
+        free(data);
+    }
+    
+    
+    
+    
+    return imgData;
+}
+
+
 
 +(NSData* )imageDataForText:(NSString *)text {
     NSLog(@"**** Making image for text: %@", text);

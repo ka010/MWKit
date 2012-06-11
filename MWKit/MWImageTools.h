@@ -21,15 +21,16 @@
 
 +(CGContextRef) CreateContext :(CGImageRef) inImage;
 +(NSData*) imageDataForCGImage:(CGImageRef)inImage;
-+(NSData*) imageDataForUIImage:(UIImage*)inImage;
-+(UIImage *)imageForText:(NSString *)text;
+
 +(NSData* )imageDataForText:(NSString *)text;
 +(NSData* )imageDataForNotification:(NSString *)text withContent:(NSString *)content andSource:(NSString*)src;
 +(NSData*)imageDataForHomeScreen:(NSDictionary*)dataDict;
 
 #if !TARGET_OS_IPHONE
 +(NSData*) imageDataForImage:(NSImage*)inImage;
-
+#else
++(NSData*) imageDataForUIImage:(UIImage*)inImage;
++(UIImage *)imageForText:(NSString *)text;
 #endif 
 
 
