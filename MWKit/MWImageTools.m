@@ -818,8 +818,41 @@
 
 
 +(UIImage *)imageForText:(NSString *)text {
-    // set the font type and size
-    UIFont *font = [UIFont fontWithName:@"MetaWatch Large 16pt" size:16];  
+    return [self imageForText:text withSize:MWFontSizeLargeCaps];
+}
+
++(UIImage *)imageForText:(NSString *)text withSize:(MWFontSize)fontSize {
+    return [self imageForText:text withSize:MWFontSizeLargeCaps background:nil];
+}
+
++(UIImage *)imageForText:(NSString *)text withSize:(MWFontSize)fontSize background:(UIImage*)template {
+   return [self imageForText:text withSize:fontSize alignment:UITextAlignmentLeft background:template];
+}
+
++(UIImage *)imageForText:(NSString *)text withSize:(MWFontSize)fontSize alignment:(UITextAlignment)alignment  background:(UIImage*)template {
+    return [self imageForText:text withSize:fontSize inFrame:CGRectMake(0, 0, 96, 96) alignment:alignment background:template];
+}
+
++(UIImage *)imageForText:(NSString *)text withSize:(MWFontSize)fontSize inFrame:(CGRect)textFrame alignment:(UITextAlignment)alignment background:(UIImage*)template {
+
+    
+    UIFont *font;
+
+    switch (fontSize) {
+        case MWFonttSizeSmallCaps:
+            font = [UIFont fontWithName:@"MetaWatch Small caps 8pt" size:8];  
+            break;
+        case MWFontSizeLargeCaps:
+            font = [UIFont fontWithName:@"MetaWatch Large caps 8pt" size:8]; 
+            break;
+            font = [UIFont fontWithName:@"MetaWatch Large 16pt" size:16]; 
+        case MWFontSizeLarge:
+            
+            break;
+        default:
+            break;
+    }
+    
     CGSize size  = CGSizeMake(96, 96);
     
     
@@ -829,25 +862,25 @@
     else
         // iOS is < 4.0 
         UIGraphicsBeginImageContext(size);
-
     
-    // draw in context, you can use also drawInRect:withFont:
-    //[text drawAtPoint:CGPointMake(0.0, 40.0) withFont:font];
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextSetFillColorWithColor(ctx, [[UIColor whiteColor]CGColor]);
     CGContextFillRect(ctx, CGRectMake(0, 0, 96, 96));
     
     CGContextSetFillColorWithColor(ctx, [[UIColor blackColor]CGColor]);
     
-    [text drawInRect:CGRectMake(0, 0, 96, 96) withFont:font lineBreakMode:UILineBreakModeWordWrap alignment:UITextAlignmentCenter];
+    if (template) {
+        [template drawInRect:CGRectMake(0, 0, 96, 96)];
+    }
     
-    // transfer image
+    [text drawInRect:textFrame withFont:font lineBreakMode:UILineBreakModeWordWrap alignment:alignment];
+    
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();    
     
     return image;
-}
 
+}
 
 #endif
 

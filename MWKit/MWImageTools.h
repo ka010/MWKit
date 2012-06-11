@@ -10,6 +10,13 @@
 #import <QuartzCore/QuartzCore.h>
 
 
+
+typedef enum {
+    MWFonttSizeSmallCaps = 0,
+    MWFontSizeLargeCaps = 1,
+    MWFontSizeLarge = 2,
+}MWFontSize;
+
 #if !TARGET_OS_IPHONE
 #import <Cocoa/Cocoa.h>
 #else
@@ -31,6 +38,10 @@
 #else
 +(NSData*) imageDataForUIImage:(UIImage*)inImage;
 +(UIImage *)imageForText:(NSString *)text;
++(UIImage *)imageForText:(NSString *)text withSize:(MWFontSize)fontSize;
++(UIImage *)imageForText:(NSString *)text withSize:(MWFontSize)fontSize background:(UIImage*)template;
++(UIImage *)imageForText:(NSString *)text withSize:(MWFontSize)fontSize alignment:(UITextAlignment)alignment background:(UIImage*)template;
++(UIImage *)imageForText:(NSString *)text withSize:(MWFontSize)fontSize inFrame:(CGRect)textFrame alignment:(UITextAlignment)alignment background:(UIImage*)template;
 #endif 
 
 
