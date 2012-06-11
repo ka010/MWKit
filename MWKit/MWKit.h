@@ -16,6 +16,7 @@
 #import "MWSerialPortController.h"
 #else
 #import "MWBTStackController.h"
+#import "MWCoreBluetoothController.h"
 #endif
 
 #define MWKitDidOpenChannelNotification @"didOpenChannel"
