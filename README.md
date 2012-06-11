@@ -3,15 +3,22 @@
 MWKit is a Cocoa/CocoaTouch framework for communicating with the [MetaWatch](http://metawatch.org) 
 
 #Features 
-
+* NEW: support for iOS BLE and the new MetaWatch (AU2001 and AU2004)
 * Implements the MetaWatch Message Protocol 
 * Modular Architecture 
-* Mac OSX support via IOBluetooth or IOCTL 
-* iOS support via btstack 
+	* Mac OSX support via IOBluetooth or IOCTL 
+	* iOS support via btstack and CoreBluetooth
 * Device Inquiry or direct connections 
 * Image rendering 
 * Text rendering 
 * Button configuration and events 
+
+
+#Demo
+There's a neat little demo project that shows how to use MWKit on both, iOS and OSX.
+
+[Available right here](https://github.com/ka010/MWKitDemo)
+
 
 
 #Usage
@@ -24,11 +31,7 @@ MWKit is a Cocoa/CocoaTouch framework for communicating with the [MetaWatch](htt
 git clone git@github.com:ka010/MWKit.git
 ```
 
-2. MWKit Demo Projects
 
-```
-git clone git@github.com:ka010/MWKitDemo.git
-```
 
 ##Using MWKit
 
@@ -54,10 +57,16 @@ on the Mac there currently are two ConnectionController implementations.
 
 #### iOS
 
-on iOS there is only one ConnectionController, MWBTStackController which wraps arround libBTStack
+on iOS there is:
+
+1. MWBTStackController which wraps arround libBTStack (jailbreak required)
+
+2. MWCoreBluetoothController which is adds support for BLE and the new MetaWatch (no jailbreak required)
+
+
 
 ```
-[MWMetaWatch sharedWatch].connectionController = [MWBTStackController sharedController];
+[MWMetaWatch sharedWatch].connectionController = [MWCoreBluetoothController sharedController];
 ```
 
 ### Device Inquiry
@@ -105,6 +114,27 @@ NSData *imgData = [MWImageTools imageDataForImage:img];
 ```
 [[MWMetaWatch sharedWatch]enableButton:kMODE_IDLE index:kBUTTON_B type:kBUTTON_TYPE_IMMEDIATE];
 ```
+
+### Revieving Button events
+
+
+```
+[[NSNotificationCenter defaultCenter]addObserver:self 
+                                            selector:@selector(mwDidReceiveButtonPress:) 
+                                                name:MWKitDidReceivePuttonPress object:nil];
+```
+
+
+
+```
+-(void)mwDidReceiveButtonPress:(NSNotification*)aNotification {
+
+    NSLog(@"Button %@ pressed",[aNotification object]);
+
+}
+```
+
+
 
 #FreeBSD License
 
