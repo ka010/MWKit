@@ -203,7 +203,7 @@ static MWCoreBluetoothController *sharedController;
         [_device discoverDescriptorsForCharacteristic:c];
         [_device setNotifyValue:YES forCharacteristic:c];
     }
-
+    [_manager stopScan];
 }
 
 -(void)peripheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
