@@ -198,22 +198,34 @@ static MWMetaWatch *sharedWatch;
 
 -(void)writeImage:(NSData*)imgData forMode:(unsigned char)mode  {
     
-    [self writeImage:imgData forMode:mode linesPerWrite:1];
+    [self writeImage:imgData forMode:mode clearOnWrite:YES];
 }
 
--(void)writeImage:(NSData*)imgData forMode:(unsigned char)mode linesPerWrite:(int)numLines {
-    [self writeImage:imgData inRect:kMWFullscreenRect forMode:mode linesPerWrite:numLines];
+-(void)writeImage:(NSData*)imgData forMode:(unsigned char)mode clearOnWrite:(BOOL)clear {
+    [self writeImage:imgData forMode:mode clearOnWrite:clear linesPerWrite:1];
+
 }
 
--(void)writeImage:(NSData*)imgData inRect:(CGRect)clippingRect forMode:(unsigned char)mode linesPerWrite:(int)numLines {
-    [self loadTemplate:mode];
+-(void)writeImage:(NSData*)imgData forMode:(unsigned char)mode clearOnWrite:(BOOL)clear linesPerWrite:(int)numLines {
+    [self writeImage:imgData inRect:kMWFullscreenRect forMode:mode clearOnWrite:clear linesPerWrite:numLines];
+}
+
+-(void)writeImage:(NSData*)imgData inRect:(CGRect)clippingRect forMode:(unsigned char)mode clearOnWrite:(BOOL)clear linesPerWrite:(int)numLines {
+
     
+    if (clear) {
+        [self loadTemplate:mode];
+    }
     
     const char* data = [imgData bytes];
+    
     int row=0;
 
     int fromRow = clippingRect.origin.y;
-    int toRow =  fromRow + clippingRect.size.height;
+    int toRow   = fromRow + clippingRect.size.height;
+    
+    int fromCol = clippingRect.origin.x;
+    int toCol   = fromCol + clippingRect.size.width;
     
     switch (numLines) {
         case 1:
@@ -226,7 +238,14 @@ static MWMetaWatch *sharedWatch;
                 for (col=0; col<96; col+=8) {
                     unsigned char byte=0x00;
                     unsigned char part[8];
-                    memcpy(part, data+row*96+col, 8);
+                    
+                    if ( (col>=fromCol) && (col<=toCol) ) {
+                        memcpy(part, data+row*96+col, 8);
+                        memcpy((void*)displayBuffer+row*96+col, data+row*96+col, 8);
+
+                    }else {
+                        memcpy(part, displayBuffer+row*96+col, 8);
+                    }
                     
                     int x=0;
                     for (x=0; x<8; x++) {
@@ -234,14 +253,13 @@ static MWMetaWatch *sharedWatch;
                             byte|=1<<x;
                         }
                     }
-                    
                     rowData[col/8]=byte;
-                    
                 }
                 
                 [self writeBuffer:mode row:row data:rowData];
                 
             }
+            // displayBuffer = data;
             break;
         case 2:
             // FIXME: use clippingRect
