@@ -213,8 +213,8 @@ static MWCoreBluetoothController *sharedController;
             [self.delegate performSelector:@selector(connectionControllerDidOpenChannel:) withObject:self];
         }
         
-        // [_device discoverDescriptorsForCharacteristic:c];
-        //[_device setNotifyValue:YES forCharacteristic:c];
+        [_device discoverDescriptorsForCharacteristic:c];
+        [_device setNotifyValue:YES forCharacteristic:c];
     }
     [_manager stopScan];
 }
