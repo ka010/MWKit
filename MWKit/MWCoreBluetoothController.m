@@ -16,6 +16,7 @@ CBPeripheral *_device;
 CBService *_service;
 CBDescriptor *_descriptor;
 
+CBPeripheralManager *_deviceManager;
 -(void)_startDiscovery;
 @end
 
@@ -42,7 +43,6 @@ static MWCoreBluetoothController *sharedController;
     self = [super init];
     if (self) {
         _manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
-        
     }
     return self;
 }
@@ -71,9 +71,7 @@ static MWCoreBluetoothController *sharedController;
 
 -(void)_startDiscovery {
     NSLog(@"%@ did Start Discovery",self);
-    NSDictionary * options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:FALSE], CBCentralManagerScanOptionAllowDuplicatesKey, nil];
-    
-    [_manager scanForPeripheralsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:kMWServiceUUID]] options:options];
+    [_manager retrieveConnectedPeripherals];
 
 }
 
@@ -145,6 +143,21 @@ static MWCoreBluetoothController *sharedController;
 
 -(void)centralManager:(CBCentralManager *)central didRetrieveConnectedPeripherals:(NSArray *)peripherals{
     NSLog(@"%@",peripherals);
+    if (peripherals.count == 0) {
+        NSDictionary * options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:FALSE], CBCentralManagerScanOptionAllowDuplicatesKey, nil];
+
+        [_manager scanForPeripheralsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:kMWServiceUUID]] options:options];
+    }else {
+        [_device = [peripherals objectAtIndex:0]retain];
+        _device.delegate = self;
+        
+        if (_device.services.count == 0) {
+            [_device discoverServices:nil];
+        }else{
+            [_device discoverCharacteristics:nil forService:[_device.services objectAtIndex:0]];
+        }
+
+    }
 }
 
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
@@ -167,7 +180,7 @@ static MWCoreBluetoothController *sharedController;
 }
 
 -(void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-    NSLog(@"didDisconnect: %@",peripheral);
+    NSLog(@"didDisconnect: %@ (error: %@)",peripheral,error);
 
     [_device release];
     _device = nil;
@@ -200,8 +213,8 @@ static MWCoreBluetoothController *sharedController;
             [self.delegate performSelector:@selector(connectionControllerDidOpenChannel:) withObject:self];
         }
         
-        [_device discoverDescriptorsForCharacteristic:c];
-        [_device setNotifyValue:YES forCharacteristic:c];
+        // [_device discoverDescriptorsForCharacteristic:c];
+        //[_device setNotifyValue:YES forCharacteristic:c];
     }
     [_manager stopScan];
 }
@@ -211,6 +224,7 @@ static MWCoreBluetoothController *sharedController;
     for (CBDescriptor *d in characteristic.descriptors) {
         NSLog(@"didDiscoverDescriptors: %@ forCharacteristic: %@",d.UUID, characteristic.UUID);
         [_device readValueForDescriptor:d];
+       
         _descriptor = [d retain];
     }
 }

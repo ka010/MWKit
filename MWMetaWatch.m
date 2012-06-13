@@ -259,7 +259,6 @@ static MWMetaWatch *sharedWatch;
                 [self writeBuffer:mode row:row data:rowData];
                 
             }
-            // displayBuffer = data;
             break;
         case 2:
             // FIXME: use clippingRect
@@ -389,9 +388,7 @@ static MWMetaWatch *sharedWatch;
 }
 
 
-/*
-    why is this not working ?
- */
+
 -(void)writeBuffer:(unsigned char)mode rowA:(unsigned char)rowA dataA:(unsigned char*)inputAData rowB:(unsigned char)rowB dataB:(unsigned char*)inputBData   {
     unsigned char data[26];
     //memset(data, 0xff,26);
