@@ -16,7 +16,6 @@ CBPeripheral *_device;
 CBService *_service;
 CBDescriptor *_descriptor;
 
-CBPeripheralManager *_deviceManager;
 -(void)_startDiscovery;
 @end
 
