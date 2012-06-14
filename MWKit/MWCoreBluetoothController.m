@@ -150,12 +150,11 @@ static MWCoreBluetoothController *sharedController;
         [_device = [peripherals objectAtIndex:0]retain];
         _device.delegate = self;
         
-        if (_device.services.count == 0) {
-            [_device discoverServices:nil];
-        }else{
-            [_device discoverCharacteristics:nil forService:[_device.services objectAtIndex:0]];
-        }
-
+        NSNumber *boolYES = [NSNumber numberWithBool:YES];
+        NSDictionary *dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObject:boolYES]
+                                                         forKeys:[NSArray arrayWithObject:CBConnectPeripheralOptionNotifyOnDisconnectionKey]];
+        [central connectPeripheral:_device options:dict];
+        
     }
 }
 
