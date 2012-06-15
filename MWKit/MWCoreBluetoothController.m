@@ -23,6 +23,7 @@ CBDescriptor *_descriptor;
 
 static MWCoreBluetoothController *sharedController;
 
+#define kMWPeriperialID @"00000000-0000-0000-441F-D842AF1C5051"
 #define kMWServiceUUID @"8880"
 #define kMWWatchCharacteristicUUID @"8881"
 

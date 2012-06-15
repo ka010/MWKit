@@ -845,9 +845,8 @@
         case MWFontSizeLargeCaps:
             font = [UIFont fontWithName:@"MetaWatch Large caps 8pt" size:8]; 
             break;
-            font = [UIFont fontWithName:@"MetaWatch Large 16pt" size:16]; 
         case MWFontSizeLarge:
-            
+            font = [UIFont fontWithName:@"MetaWatch Large 16pt" size:16]; 
             break;
         default:
             break;
