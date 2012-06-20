@@ -75,6 +75,7 @@
 
 @property (retain) NSString *logString;
 @property (assign) MWConnectionController *connectionController;
+@property (assign) id delegate;
 
 -(void)startSearch;
 -(void)openChannel;
@@ -120,4 +121,14 @@
 -(void)appendToLog:(NSString*)s;
 
 
+@end
+
+@protocol MWMetaWatchDelegate<NSObject>
+
+-(void)metawatchDidConnect:(MWMetaWatch*)watch;
+-(void)metawatchDidDisconnect:(MWMetaWatch*)watch;
+-(void)metawatch:(MWMetaWatch*)watch didSendData:(NSData*)data;
+-(void)metawatch:(MWMetaWatch*)watch didReceiveData:(NSData*)data;
+-(void)metawatch:(MWMetaWatch*)watch didPressButton:(unsigned char)button;
+-(void)metawatchDidPing:(MWMetaWatch*)watch;
 @end

@@ -15,7 +15,7 @@
 @end
 
 @implementation MWMetaWatch
-@synthesize logString;
+@synthesize logString,delegate;
 
 #define kMWFullscreenRect CGRectMake(0, 0, 96, 96)
 
@@ -105,6 +105,10 @@ static MWMetaWatch *sharedWatch;
     NSLog(@"channel opened ");
     self.logString = [self.logString stringByAppendingFormat:@"** Channel opened. \n"];
 
+    if ([self.delegate respondsToSelector:@selector(metawatchDidConnect:)]) {
+        [self.delegate performSelector:@selector(metawatchDidConnect:) withObject:self];
+    }
+    
     [[NSNotificationCenter defaultCenter]postNotificationName:MWKitDidOpenChannelNotification object:nil];
 
 }
@@ -113,6 +117,10 @@ static MWMetaWatch *sharedWatch;
 -(void)connectionControllerDidCloseChannel:(MWConnectionController *)controller {
     NSLog(@"channel Closed");
     self.logString = [self.logString stringByAppendingFormat:@"** Connection closed. \n"];
+    
+    if ([self.delegate respondsToSelector:@selector(metawatchDidDisconnect:)]) {
+        [self.delegate performSelector:@selector(metawatchDidDisconnect:) withObject:self];
+    }
     
     [[NSNotificationCenter defaultCenter]postNotificationName:MWKitDidCloseChannelNotification object:nil];
 }
@@ -142,10 +150,13 @@ static MWMetaWatch *sharedWatch;
     [self.connectionController tx:cmd options:options data:inputData len:len];
     
     
-    if (cmd!=kMSG_TYPE_WRITE_BUFFER) {        
-    
-        [[NSNotificationCenter defaultCenter]postNotificationName:MWKitDidSendData object:nil];
+    if ([self.delegate respondsToSelector:@selector(metawatch:didSendData:)]) {
+        [self.delegate performSelector:@selector(metawatch:didSendData:) withObject:self withObject:(NSData*)inputData];
     }
+        
+    [[NSNotificationCenter defaultCenter]postNotificationName:MWKitDidSendData object:nil];
+
+    
 
 }
 
@@ -172,7 +183,14 @@ static MWMetaWatch *sharedWatch;
     }else if (msgType==kMSG_TYPE_READ_BATTERY_VOLATRE_RESPONSE) {
         NSNumber *voltage = [NSNumber numberWithChar:data[0]];
         NSLog(@"didget Voltage:%@ ", voltage);
+    }else if (msgType==0xffffffb1) {
+        NSLog(@"received -notsurewhatitdoesbutitfireseveryminute- event");
+        
+        if ([self.delegate respondsToSelector:@selector(metawatchDidPing:)]) {
+            [self.delegate performSelector:@selector(metawatchDidPing:) withObject:self];
+        }
     }
+
     
     int i =0;
     for (i=0; i<(sizeof(data)/sizeof(unsigned char)); i++) {
@@ -181,6 +199,11 @@ static MWMetaWatch *sharedWatch;
         self.logString =  [self.logString stringByAppendingFormat:@"0x%02x",data[i]];
     }
     self.logString = [self.logString stringByAppendingFormat:@"\n"];
+    
+    if ([self.delegate respondsToSelector:@selector(metawatch:didReceiveData:)]) {
+        [self.delegate performSelector:@selector(metawatch:didReceiveData:) withObject:self withObject:(NSData*)data];
+    }
+    
     [[NSNotificationCenter defaultCenter]postNotificationName:MWKitDidReceiveData object:nil];
     
     
@@ -543,5 +566,13 @@ static MWMetaWatch *sharedWatch;
     [self _tx:kMSG_TYPE_READ_BATTERY_VOLTAGE_MESSAGE options:0x00 data:data len:1]; 
 }
 
+
+/*
+ 
+ */
+-(void)enableTimer {
+    unsigned char data[] = {0x3c, 0x00, 0xff, 0xdd};
+    [self _tx:0xb0 options:0x00 data:data len:4]; 
+}
 
 @end
