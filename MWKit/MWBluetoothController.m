@@ -384,7 +384,7 @@ static MWBluetoothController *sharedController;
     
 
     
-    [self.delegate performSelector:@selector(connectionControllerDidCloseChannel:) withObject:self];
+    [self.delegate performSelector:@selector(connectionControllerDidCloseChannel:withError:) withObject:self withObject:nil];
 
     
     

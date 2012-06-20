@@ -338,7 +338,7 @@ void CloseSerialPort(int fileDescriptor)
 
 -(void)closeChannel {
     CloseSerialPort(fileDescriptor);
-    [self.delegate performSelector:@selector(connectionControllerDidCloseChannel:) withObject:self];
+    [self.delegate performSelector:@selector(connectionControllerDidCloseChannel:withError:) withObject:self withObject:nil];
 
 }
 

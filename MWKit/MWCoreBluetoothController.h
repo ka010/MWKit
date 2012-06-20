@@ -15,4 +15,6 @@
 
 +(MWCoreBluetoothController *) sharedController;
 
+-(BOOL)isLEAvailable;
+
 @end

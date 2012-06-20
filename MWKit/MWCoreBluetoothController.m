@@ -8,6 +8,7 @@
 
 #import "MWCoreBluetoothController.h"
 #import "MWMetaWatch.h"
+#include  "crc16ccitt.h"
 
 
 @interface MWCoreBluetoothController ()
@@ -15,6 +16,9 @@ CBCentralManager *_manager;
 CBPeripheral *_device;
 CBService *_service;
 CBDescriptor *_descriptor;
+
+BOOL _pendingInit;
+BOOL _LEAvailable;
 
 -(void)_startDiscovery;
 @end
@@ -42,6 +46,8 @@ static MWCoreBluetoothController *sharedController;
 {
     self = [super init];
     if (self) {
+        _LEAvailable = NO;
+        _pendingInit = YES;
         _manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
     }
     return self;
@@ -56,13 +62,22 @@ static MWCoreBluetoothController *sharedController;
     [super dealloc];
 }
 
+
+#pragma mark -
+
+-(BOOL)isLEAvailable {
+    return _LEAvailable;
+}
+
+
 #pragma mark MWConnectionControllerDelegate
 
 -(void)startDiscovery {
     
     if (_device) {
         [self closeChannel];
-        [self performSelector:@selector(_startDiscovery) withObject:nil afterDelay:2.0];
+        // [self  _startDiscovery];
+        [self performSelector:@selector(_startDiscovery) withObject:nil afterDelay:5.0];
         return;
     }
     
@@ -70,9 +85,11 @@ static MWCoreBluetoothController *sharedController;
 }
 
 -(void)_startDiscovery {
+    [MWCoreBluetoothController cancelPreviousPerformRequestsWithTarget:self selector:@selector(_startDiscovery) object:nil];
+    
     NSLog(@"%@ did Start Discovery",self);
     [_manager retrieveConnectedPeripherals];
-
+    
 }
 
 -(void)openChannel {
@@ -86,9 +103,6 @@ static MWCoreBluetoothController *sharedController;
     }
 }
 
--(void)sendFrame:(NSData *)frame withLenght:(unsigned char)lenght {
-    
-}
 
 
 -(void)tx:(unsigned char)cmd options:(unsigned char)options data:(unsigned char *)inputData len:(unsigned char)len {
@@ -117,7 +131,7 @@ static MWCoreBluetoothController *sharedController;
     } logString = [logString stringByAppendingFormat:@"\n"];
     
     [[MWMetaWatch sharedWatch]appendToLog:logString];
-
+    
     NSLog(@"%@",logString);
     
     NSData *frame = [NSData dataWithBytes:(void*)data length:len+6];
@@ -126,7 +140,7 @@ static MWCoreBluetoothController *sharedController;
         if ([c.UUID isEqual:[CBUUID UUIDWithString:kMWWatchCharacteristicUUID]]) {
             [_device writeValue:frame forCharacteristic:c type:CBCharacteristicWriteWithResponse];
         }
-
+        
     }
 }
 
@@ -134,7 +148,48 @@ static MWCoreBluetoothController *sharedController;
 #pragma mark CBCentralManagerDelegate
 
 -(void)centralManagerDidUpdateState:(CBCentralManager *)central {
-    // FIXME: handle device capabilities 
+    
+    static CBCentralManagerState previousState = -1;
+    
+	switch ([central state]) {
+		case CBCentralManagerStatePoweredOff:
+		{            
+			/* Tell user to power ON BT for functionality, but not on first run - the Framework will alert in that instance. */
+            if (previousState != -1) {
+                _LEAvailable=NO;
+            }
+			break;
+		}
+            
+		case CBCentralManagerStateUnauthorized:
+		{
+            _LEAvailable=NO;
+			break;
+		}
+            
+		case CBCentralManagerStateUnknown:
+		{
+			/* Bad news, let's wait for another event. */
+			break;
+		}
+            
+		case CBCentralManagerStatePoweredOn:
+		{
+			_pendingInit = NO;
+			_LEAvailable = YES;
+			break;
+		}
+            
+		case CBCentralManagerStateResetting:
+		{
+
+			_pendingInit = YES;
+			break;
+		}
+	}
+    
+    previousState = [central state];
+    
 }
 
 -(void)centralManager:(CBCentralManager *)central didRetrievePeripherals:(NSArray *)peripherals{
@@ -142,10 +197,10 @@ static MWCoreBluetoothController *sharedController;
 }
 
 -(void)centralManager:(CBCentralManager *)central didRetrieveConnectedPeripherals:(NSArray *)peripherals{
-    NSLog(@"%@",peripherals);
+    NSLog(@"connected peripherals %@",peripherals);
     if (peripherals.count == 0) {
         NSDictionary * options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:FALSE], CBCentralManagerScanOptionAllowDuplicatesKey, nil];
-
+        
         [_manager scanForPeripheralsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:kMWServiceUUID]] options:options];
     }else {
         [_device = [peripherals objectAtIndex:0]retain];
@@ -166,8 +221,10 @@ static MWCoreBluetoothController *sharedController;
     NSDictionary *dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObject:boolYES]
                                                      forKeys:[NSArray arrayWithObject:CBConnectPeripheralOptionNotifyOnDisconnectionKey]];
     if (_device) {
+        // do nothing if connected already 
         return;
     }
+    
     _device = [peripheral retain];
     _device.delegate = self;
     [central connectPeripheral:_device options:dict];
@@ -180,12 +237,12 @@ static MWCoreBluetoothController *sharedController;
 
 -(void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     NSLog(@"didDisconnect: %@ (error: %@)",peripheral,error);
-
+    
     [_device release];
     _device = nil;
     
-    [self.delegate performSelector:@selector(connectionControllerDidCloseChannel:) withObject:self];
-
+    [self.delegate performSelector:@selector(connectionControllerDidCloseChannel:withError:) withObject:self withObject:error];
+    
 }
 
 -(void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
@@ -223,20 +280,20 @@ static MWCoreBluetoothController *sharedController;
     for (CBDescriptor *d in characteristic.descriptors) {
         NSLog(@"didDiscoverDescriptors: %@ forCharacteristic: %@",d.UUID, characteristic.UUID);
         [_device readValueForDescriptor:d];
-       
+        
         _descriptor = [d retain];
     }
 }
 
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     NSLog(@"didUpdateNotificationStateForCharacteristic: %@",characteristic.UUID);
-
+    
 }
 
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     NSLog(@"didUpdateValueForCharacteristic: %@ %@",characteristic.UUID, characteristic.value);
     [self.delegate performSelector:@selector(connectionController:didReceiveData:) withObject:self withObject:[characteristic.value copy]];
-
+    
 }
 
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error {

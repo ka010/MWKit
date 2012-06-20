@@ -114,8 +114,8 @@ static MWMetaWatch *sharedWatch;
 }
 
 
--(void)connectionControllerDidCloseChannel:(MWConnectionController *)controller {
-    NSLog(@"channel Closed");
+-(void)connectionControllerDidCloseChannel:(MWConnectionController *)controller withError:(NSError *)error {
+    NSLog(@"channel Closed (error:%@)",error);
     self.logString = [self.logString stringByAppendingFormat:@"** Connection closed. \n"];
     
     if ([self.delegate respondsToSelector:@selector(metawatchDidDisconnect:)]) {
@@ -135,7 +135,10 @@ static MWMetaWatch *sharedWatch;
 
 
 
-
+-(void)connectionController:(MWConnectionController *)controller didFailWithError:(NSError *)error {
+    NSLog(@"did encounter error (error:%@)",error);
+    // FIXME: do something useful here
+}
 
 
 

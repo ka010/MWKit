@@ -39,7 +39,7 @@
 @protocol MWConnectionControllerDelegate <NSObject>
 
 -(void)connectionControllerDidOpenChannel:(MWConnectionController*)controller;
--(void)connectionControllerDidCloseChannel:(MWConnectionController*)controller;
+-(void)connectionControllerDidCloseChannel:(MWConnectionController*)controller withError:(NSError*)error;
 -(void)connectionController:(MWConnectionController*)controller didReceiveData:(NSData*)data;
-
+-(void)connectionController:(MWConnectionController*)controller didFailWithError:(NSError*)error;
 @end

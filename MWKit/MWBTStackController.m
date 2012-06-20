@@ -226,7 +226,7 @@ static MWBTStackController *sharedController;
 
 
 -(void) rfcommConnectionClosedForConnectionID:(uint16_t)connectionID {
-    [self.delegate performSelector:@selector(connectionControllerDidCloseChannel:) withObject:self];
+    [self.delegate performSelector:@selector(connectionControllerDidCloseChannel:withError:) withObject:self withObject:nil];
     connectionID = NULL;
 }
 
