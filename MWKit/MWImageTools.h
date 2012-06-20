@@ -42,6 +42,7 @@ typedef enum {
 +(UIImage *)imageForText:(NSString *)text withSize:(MWFontSize)fontSize background:(UIImage*)template;
 +(UIImage *)imageForText:(NSString *)text withSize:(MWFontSize)fontSize alignment:(UITextAlignment)alignment background:(UIImage*)template;
 +(UIImage *)imageForText:(NSString *)text withSize:(MWFontSize)fontSize inFrame:(CGRect)textFrame alignment:(UITextAlignment)alignment background:(UIImage*)template;
++(UIImage *)imageForText:(NSString *)text withSize:(MWFontSize)fontSize inFrame:(CGRect)textFrame alignment:(UITextAlignment)alignment background:(UIImage*)template invert:(BOOL)inverted;
 #endif 
 
 

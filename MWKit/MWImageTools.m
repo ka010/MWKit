@@ -834,6 +834,10 @@
 }
 
 +(UIImage *)imageForText:(NSString *)text withSize:(MWFontSize)fontSize inFrame:(CGRect)textFrame alignment:(UITextAlignment)alignment background:(UIImage*)template {
+    return [self imageForText:text withSize:fontSize inFrame:textFrame alignment:alignment background:template invert:NO];
+}
+
++(UIImage *)imageForText:(NSString *)text withSize:(MWFontSize)fontSize inFrame:(CGRect)textFrame alignment:(UITextAlignment)alignment background:(UIImage*)template invert:(BOOL)inverted {
 
     
     UIFont *font;
@@ -863,11 +867,21 @@
         UIGraphicsBeginImageContext(size);
     
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(ctx, [[UIColor whiteColor]CGColor]);
-    CGContextFillRect(ctx, CGRectMake(0, 0, 96, 96));
     
-    CGContextSetFillColorWithColor(ctx, [[UIColor blackColor]CGColor]);
-    
+    if (inverted) {
+        CGContextSetFillColorWithColor(ctx, [[UIColor blackColor]CGColor]);
+        CGContextFillRect(ctx, CGRectMake(0, 0, 96, 96));
+        
+        CGContextSetFillColorWithColor(ctx, [[UIColor whiteColor]CGColor]);
+
+    }else {
+        CGContextSetFillColorWithColor(ctx, [[UIColor whiteColor]CGColor]);
+        CGContextFillRect(ctx, CGRectMake(0, 0, 96, 96));
+        
+        CGContextSetFillColorWithColor(ctx, [[UIColor blackColor]CGColor]);
+
+    }
+        
     if (template) {
         [template drawInRect:CGRectMake(0, 0, 96, 96)];
     }
