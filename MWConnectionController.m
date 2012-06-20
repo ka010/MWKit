@@ -12,6 +12,7 @@
 
 @implementation MWConnectionController
 @synthesize delegate;
+
 - (id)init
 {
     self = [super init];
@@ -38,14 +39,8 @@
 
 }
 
-
--(void)sendFrame:(NSData*)frame withLenght:(unsigned char)lenght {
-    // implemented in subclass
-
-}
-
-
 -(void)tx:(unsigned char)cmd options:(unsigned char)options data:(unsigned char*)inputData len:(unsigned char)len {
-    
+    // implemented in subclass
 }
+
 @end
