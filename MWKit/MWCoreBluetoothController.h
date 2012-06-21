@@ -7,7 +7,13 @@
 //
 
 #import "MWConnectionController.h"
+
+#if TARGET_OS_IPHONE
 #import <CoreBluetooth/CoreBluetooth.h>
+#else
+#import <IOBluetooth/IOBluetooth.h>
+#endif
+
 
 @interface MWCoreBluetoothController : MWConnectionController<CBCentralManagerDelegate, CBPeripheralDelegate> {
 
