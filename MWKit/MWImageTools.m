@@ -117,7 +117,7 @@
     if (cgctx == NULL) 
     { 
         // error creating context
-        return;
+        return nil;
     }
     
     NSGraphicsContext *nsGraphicsContext;
@@ -286,7 +286,7 @@
     { 
         // error creating context
         NSLog(@"Error while creating GraphicsContext");
-        return;
+        return nil;
     }
     
     
@@ -390,7 +390,7 @@
     if (cgctx == NULL) 
     { 
         // error creating context
-        return;
+        return nil;
     }
     
     NSGraphicsContext *nsGraphicsContext;
@@ -718,7 +718,7 @@
     if (cgctx == NULL) 
     { 
         // error creating context
-        return;
+        return nil;
     }
     
     size_t w = CGImageGetWidth(imgRef);
@@ -795,7 +795,7 @@
     if (cgctx == NULL) 
     { 
         // error creating context
-        return;
+        return nil;
     }
     
     size_t w = CGImageGetWidth(imgRef);
