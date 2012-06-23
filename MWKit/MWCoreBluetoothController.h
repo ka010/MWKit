@@ -16,7 +16,13 @@
 
 
 @interface MWCoreBluetoothController : MWConnectionController<CBCentralManagerDelegate, CBPeripheralDelegate> {
-
+    CBCentralManager *_manager;
+    CBPeripheral *_device;
+    CBService *_service;
+    CBDescriptor *_descriptor;
+    
+    BOOL _pendingInit;
+    BOOL _LEAvailable;
 }
 
 +(MWCoreBluetoothController *) sharedController;
