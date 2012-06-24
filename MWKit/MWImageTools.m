@@ -24,6 +24,10 @@
 
 
 +(CGContextRef) CreateContext :(CGImageRef) inImage {
+    return [MWImageTools CreateContext:inImage size:CGSizeMake(96, 96)];
+}
+
++(CGContextRef) CreateContext :(CGImageRef) inImage size:(CGSize)size {
     CGContextRef    context = NULL;
     CGColorSpaceRef colorSpace;
     void *          bitmapData;
@@ -34,19 +38,13 @@
     size_t pixelsHigh;
     
     if (inImage == NULL) {
-        pixelsWide = 96;
-        pixelsHigh = 96;
+        pixelsWide = size.width;
+        pixelsHigh = size.height;
     }else {
         pixelsWide = CGImageGetWidth(inImage);
         pixelsHigh = CGImageGetHeight(inImage);
     }
 
-    
-    // Get image width, height. We'll use the entire image.
-    
-    
-    
-    NSLog(@"size: %u:%u",pixelsHigh,pixelsWide);
     // Declare the number of bytes per row. Each pixel in the bitmap in this
     // example is represented by 4 bytes; 8 bits each of red, green, blue, and
     // alpha.
@@ -92,9 +90,8 @@
     CGColorSpaceRelease( colorSpace );
     
     return context;
+
 }
-
-
 
 
 #pragma mark - Mac Code 
@@ -166,14 +163,19 @@
 
 
 
+
 +(NSData* )imageDataForText:(NSString *)text {
-    // set the font type and size
-    NSFont *font = [NSFont fontWithName:@"Arial" size:13];  
-    CGSize size  = CGSizeMake(96, 96);
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    [style setAlignment:NSCenterTextAlignment];
     
+    NSDictionary *dict = [[NSDictionary dictionaryWithObjectsAndKeys:
+      [NSColor colorWithDeviceWhite:0.0 alpha:1.0],NSForegroundColorAttributeName,
+      style, NSParagraphStyleAttributeName,
+      [NSFont fontWithName:@"MetaWatch Large 16pt" size:16.0], NSFontAttributeName,nil]retain];
     
-    // check if UIGraphicsBeginImageContextWithOptions is available (iOS is 4.0+)
-    CGContextRef ctx = [MWImageTools CreateContext:NULL];
+    CGSize textSize = [text sizeWithAttributes:dict];
+    
+    CGContextRef ctx = [MWImageTools CreateContext:NULL size:CGSizeMake(96, textSize.height)];
     
     NSGraphicsContext *nsGraphicsContext;
     nsGraphicsContext = [NSGraphicsContext graphicsContextWithGraphicsPort:ctx
@@ -183,40 +185,24 @@
     
     
     CGContextSetFillColorWithColor(ctx,  CGColorCreateGenericGray(1.0, 1.0));
-    CGContextFillRect(ctx, CGRectMake(0, 0, 96, 96));
+    CGContextFillRect(ctx, CGRectMake(0, 0, 96, textSize.height));
     
-    //    CGContextSelectFont(ctx, "MetaWatch Small caps 8pt", 8, kCGEncodingFontSpecific);
     CGContextSetTextDrawingMode(ctx, kCGTextFill);
     CGContextSetFillColorWithColor(ctx,  CGColorCreateGenericGray(0.0, 1.0));
-    
-    
-    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    [style setAlignment:NSCenterTextAlignment];
-    
-    NSDictionary *dict =
-    [[NSDictionary dictionaryWithObjectsAndKeys:
-      [NSColor colorWithDeviceWhite:0.0 alpha:1.0],NSForegroundColorAttributeName,
-      style, NSParagraphStyleAttributeName,
-      [NSFont fontWithName:@"MetaWatch Small caps 8pt" size:8.0], NSFontAttributeName,nil]retain];   
-    //    
-    [text drawInRect:CGRectMake(0, 0, 96, 51) withAttributes:dict];
+   
+    [text drawInRect:CGRectMake(0, 0, 96, textSize.height) withAttributes:dict];
     
     
     CGImageRef imgRef = CGBitmapContextCreateImage(ctx);
     
     const char *data = CGBitmapContextGetData (ctx);
     
-    NSData* imgData = [NSData dataWithBytes:(void*)data length:96*96];
-    
-    NSImage* image = [[NSImage alloc]initWithCGImage:imgRef size:NSMakeSize(96, 96)];
-    
+    NSData* imgData = [NSData dataWithBytes:(void*)data length:96*textSize.height];
     
     [NSGraphicsContext restoreGraphicsState];
     
     CGImageRelease(imgRef);
     
-    
-    // When finished, release the context
     CGContextRelease(ctx); 
     
     return imgData;
