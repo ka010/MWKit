@@ -11,17 +11,7 @@
 #include  "crc16ccitt.h"
 
 
-@interface MWCoreBluetoothController () {
-    CBCentralManager *_manager;
-    CBPeripheral *_device;
-    CBService *_service;
-    CBDescriptor *_descriptor;
-    
-    BOOL _pendingInit;
-    BOOL _LEAvailable;
-}
-
-
+@interface MWCoreBluetoothController () 
 -(void)_startDiscovery;
 @end
 
